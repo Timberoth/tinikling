@@ -18,18 +18,17 @@ public class GameManager : MonoBehaviour {
 	 */
 	
 	// Prefab References used to spawn objects at run time
-	public GameObject leftFootObject;	
-	public GameObject rightFootObject;
+	public GameObject footObject;	
 	
 	// Real time game object references
-	private GameObject leftFoot = null;
-	private GameObject rightFoot = null;
+	private GameObject []feet;
 	
-	// Track the last foot spawned
-	private Foot lastFoot = Foot.Right;
+	// Feet positioning
+	private Vector3[] feetPositions;
 	
 	// Input Code
-	private bool mouseHeld = false;
+	private bool fingerPressed;
+	
 	
 	/*
 	 * Functions 
@@ -37,6 +36,8 @@ public class GameManager : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
+		feet = new GameObject[]{null, null};
+		feetPositions = new Vector3[]{new Vector3(0,0,0), new Vector3(0,0,0)};
 	}
 	
 	// Update is called once per frame
@@ -47,59 +48,80 @@ public class GameManager : MonoBehaviour {
 		
 	}
 	
-	public GameObject SpawnFoot( Foot type, Vector3 position ){
-		GameObject foot = null;
-		
-		if( type == Foot.Left )
-		{
-			if( leftFootObject != null )
-				foot = Instantiate( leftFootObject, position, Quaternion.identity) as GameObject;
-			
-		}
-		else if( type == Foot.Right )
-		{
-			if( leftFootObject != null )
-				foot = Instantiate( leftFootObject, position, Quaternion.identity) as GameObject;
-		}
-		
-		return foot;
+	public GameObject SpawnFoot( Vector3 position ){
+	
+		if( footObject != null )
+			return Instantiate( footObject, position, Quaternion.identity) as GameObject;
+		else
+			return null;
 	}	
 	
 	
-	private void CheckForInput(){
-		// Check if mouse is down for the first time.		
-		bool mouseDown = Input.GetMouseButtonDown(0);
-		if( mouseDown && !mouseHeld )
-		{			
-			// Position
-			Camera mainCamera = UnityEngine.Camera.mainCamera;
-			Vector3 mousePosition = Input.mousePosition;			
-			mousePosition.z = -mainCamera.transform.position.z;
-			Vector3 worldPosition = mainCamera.ScreenToWorldPoint( mousePosition );
-						
-			
-			// Spawn foot
-			leftFoot = SpawnFoot( Foot.Left, worldPosition );
-			
-			mouseHeld = true;			
-			
-			// Start particle effect
-		}
-		
-		// Check if the mouse has just been released.
-		bool mouseUp = Input.GetMouseButtonUp(0);
-		if( mouseUp && mouseHeld )
+	private void CheckForInput()
+	{
+		// If there are no touches, double check all feet destroyed
+		if( Input.touches.Length == 0 )
 		{
-			mouseHeld = false;
-			
-			// Despawn foot
-			if( leftFoot != null )
+			for( int i = 0; i < feet.Length; i++ )
 			{
-				GameManager.Destroy( leftFoot );
-				leftFoot = null;
+				if( feet[i] != null )
+				{
+					Destroy(feet[i]);
+					feet[i] = null;
+					feetPositions[i] = Vector3.zero;
+				}
 			}
 			
-			// End particle effect			
+			return;
 		}
+		
+		
+		foreach(Touch touch in Input.touches) {
+			
+			// Calculate touches world space position.
+			Camera mainCamera = UnityEngine.Camera.mainCamera;
+			Vector3 fingerPosition = new Vector3();
+			fingerPosition.x = touch.position.x;
+			fingerPosition.y = touch.position.y;
+			fingerPosition.z = -mainCamera.transform.position.z;
+			Vector3 worldPosition = mainCamera.ScreenToWorldPoint( fingerPosition );
+			
+			float fingerDelta = touch.deltaPosition.magnitude;
+					
+			// On first touch, spawn a foot if there aren't two already.
+			if (touch.phase == TouchPhase.Began) {
+				if( feet[0] == null )
+				{
+					// Spawn foot
+					feet[0] = SpawnFoot( worldPosition );
+					feetPositions[0] = worldPosition;
+				}
+				else if( feet[1] == null )
+				{
+					// Spawn foot
+					feet[1] = SpawnFoot( worldPosition );
+					feetPositions[1] = worldPosition;
+				}
+			}
+			
+			else if( touch.phase == TouchPhase.Ended || fingerDelta > 5.0 || touch.phase == TouchPhase.Canceled )
+			{
+				for( int i = 0; i < feetPositions.Length; i++ )
+				{
+					// Figure out which foot was removed and delete it
+					if( Vector3.Distance( worldPosition, feetPositions[i] ) < 3.0 )
+					{
+						if( feet[i] != null )
+						{
+							Destroy( feet[i] );
+							feet[i] = null;	
+							
+							// Zero out the foot position
+							feetPositions[i] = Vector3.zero;
+						}
+					}
+				}
+			}
+		}	
 	}
 }
