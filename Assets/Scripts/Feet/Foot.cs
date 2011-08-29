@@ -16,7 +16,7 @@ public class Foot : MonoBehaviour {
 	}
 	
 	void OnTriggerEnter (Collider other) {
-		Destroy( this.gameObject );		
+		//Destroy( this.gameObject );		
 		
 		// Play sound
 		
