@@ -29,6 +29,10 @@ public class GameManager : MonoBehaviour {
 	// Input Code
 	private bool fingerPressed;
 	
+#if UNITY_EDITOR
+	private bool mouseHeld = false;
+#endif
+	
 	
 	/*
 	 * Functions 
@@ -59,6 +63,45 @@ public class GameManager : MonoBehaviour {
 	
 	private void CheckForInput()
 	{
+#if UNITY_EDITOR
+		// Check if mouse is down for the first time.		
+		bool mouseDown = Input.GetMouseButtonDown(0);		
+		if( mouseDown && !mouseHeld )
+		{			
+			// Position
+			Camera mainCamera = UnityEngine.Camera.mainCamera;
+			Vector3 mousePosition = Input.mousePosition;			
+			mousePosition.z = -mainCamera.transform.position.z;
+			Vector3 worldPosition = mainCamera.ScreenToWorldPoint( mousePosition );
+									
+			// Spawn foot
+			feet[0] = SpawnFoot( worldPosition );
+			
+			mouseHeld = true;			
+			
+			// Start particle effect
+		}
+		
+		// Check if the mouse has just been released.
+		bool mouseUp = Input.GetMouseButtonUp(0);
+		if( mouseUp && mouseHeld )
+		{
+			mouseHeld = false;
+			
+			// Despawn foot
+			if( feet[0] != null )
+			{
+				GameManager.Destroy( feet[0] );
+				feet[0] = null;
+			}
+			
+			// End particle effect			
+		}
+		
+#elif UNITY_ANDROID
+		
+		
+#elif UNITY_IPHONE		
 		// If there are no touches, double check all feet destroyed
 		if( Input.touches.Length == 0 )
 		{
@@ -122,6 +165,7 @@ public class GameManager : MonoBehaviour {
 					}
 				}
 			}
-		}	
+		}
+#endif
 	}
 }

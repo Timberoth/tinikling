@@ -4,10 +4,13 @@ using System.Collections;
 [RequireComponent (typeof (Collider))]
 
 public class Foot : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
 	
+	private AudioSource footHit = null;
+	
+	// Use this for initialization
+	void Start () {		
+		
+		InitAudio();
 	}
 	
 	// Update is called once per frame
@@ -16,10 +19,29 @@ public class Foot : MonoBehaviour {
 	}
 	
 	void OnTriggerEnter (Collider other) {
-		//Destroy( this.gameObject );		
-		
 		// Play sound
+		if( footHit != null )
+		{
+			AudioSource.PlayClipAtPoint(footHit.clip, Vector3.zero);			
+		}
 		
-		// Play particle FX		
+		// Play particle FX
+		
+		
+		// Destroy object
+		Destroy( this.gameObject );
+	}
+	
+	
+	void InitAudio()
+	{
+		// Create references to the attached audio sources.
+		foreach( AudioSource source in this.GetComponents<AudioSource>() )
+		{			
+			if( source.clip.name == "FootHit" )
+			{
+				footHit = source;				
+			}			
+		}		
 	}
 }
