@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour {
 	 */
 	
 	// Prefab References used to spawn objects at run time
-	public GameObject footObject;	
+	public GameObject footObject;		
 	
 	// Real time game object references
 	private GameObject []feet;
@@ -32,6 +32,17 @@ public class GameManager : MonoBehaviour {
 #if UNITY_EDITOR
 	private bool mouseHeld = false;
 #endif
+	
+	// Singleton Startup
+	static GameManager instance;
+	void Awake(){		
+		if(instance == null){
+			instance = this;
+		}
+		else{
+			Debug.LogWarning("There should only be one of these");
+		}
+	}
 	
 	
 	/*
