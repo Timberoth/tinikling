@@ -10,11 +10,6 @@ public abstract class Stick : MonoBehaviour {
 	protected const string easeTypeIn = "easeInBack"; 
 	protected const string easeTypeOut = "easeOutQuint"; 
 	
-	protected const float upDownDist = 3.0f;
-	protected const float inOutDist = 5.0f;
-	
-	protected float speed = 20.0f;
-	
 	// Public
 	public string stickName;
 	
@@ -68,9 +63,9 @@ public abstract class Stick : MonoBehaviour {
 		
 	protected void StartDown()
 	{
-		iTween.MoveBy(gameObject, iTween.Hash("z", upDownDist,
+		iTween.MoveBy(gameObject, iTween.Hash("z", GameManager.instance.upDownDist,
 		                                      "easeType", easeTypeDown,
-		                                      "speed", speed,
+		                                      "speed", GameManager.instance.upDownSpeed,
 		                                      "oncomplete", "DownComplete"));
 	}
 	
@@ -98,8 +93,8 @@ public abstract class Stick : MonoBehaviour {
 	
 	protected void StartUp()
 	{
-		iTween.MoveBy(gameObject, iTween.Hash("z", -upDownDist, 
-		                                      "speed", speed,
+		iTween.MoveBy(gameObject, iTween.Hash("z", -GameManager.instance.upDownDist, 
+		                                      "speed", GameManager.instance.upDownSpeed,
 		                                      "easeType", easeTypeUp, 		                                      
 		                                      "oncomplete", "UpComplete"));
 	}
