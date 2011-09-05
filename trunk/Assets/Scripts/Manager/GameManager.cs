@@ -4,7 +4,7 @@ using System.Collections;
 public class GameManager : MonoBehaviour {
 	
 	/*
-	 * Enums 
+	 * Enums
 	 */
 	public enum Foot
 	{
@@ -14,12 +14,27 @@ public class GameManager : MonoBehaviour {
 	
 	
 	/*
-	 * Variables
-	 */
-	
+	 * Publics
+	 */	
 	// Prefab References used to spawn objects at run time
-	public GameObject footObject;		
+	public GameObject footObject;
 	
+	public float upDownDist = 3.0f;
+	public float inOutDist = 5.0f;
+		
+	public float UPDOWN_SPEED_MAX = 40.0f;
+	public float upDownSpeed;
+	
+	public float INOUT_SPEED_MAX = 40.0f;
+	public float inOutSpeed;
+	
+	public UISlider upDownSpeedSlider;
+	public UISlider inOutSpeedSlider;
+		
+	
+	/*
+	 * Privates
+	 */
 	// Real time game object references
 	private GameObject []feet;
 	
@@ -33,8 +48,11 @@ public class GameManager : MonoBehaviour {
 	private bool mouseHeld = false;
 #endif
 	
-	// Singleton Startup
-	static GameManager instance;
+	
+	/*
+	 * Singleton Code
+	 */	
+	public static GameManager instance;
 	void Awake(){		
 		if(instance == null){
 			instance = this;
@@ -46,23 +64,32 @@ public class GameManager : MonoBehaviour {
 	
 	
 	/*
-	 * Functions 
+	 * Unity Functions 
 	 */
 	
 	// Use this for initialization
 	void Start () {
+		
+		upDownSpeed = UPDOWN_SPEED_MAX/2.0f;
+		inOutSpeed = INOUT_SPEED_MAX/2.0f;
+		
 		feet = new GameObject[]{null, null};
 		feetPositions = new Vector3[]{new Vector3(0,0,0), new Vector3(0,0,0)};
+		
+		// Register our delegate with both controls:
+        upDownSpeedSlider.AddValueChangedDelegate(SpeedSliderChange);
+		inOutSpeedSlider.AddValueChangedDelegate(SpeedSliderChange);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		// Check for mouse input
-		CheckForInput();
-		
-		
+		CheckForInput();	
 	}
 	
+	/*
+	 * Game Functions
+	 */
 	public GameObject SpawnFoot( Vector3 position ){
 	
 		if( footObject != null )
@@ -72,6 +99,9 @@ public class GameManager : MonoBehaviour {
 	}	
 	
 	
+	/*
+	 * Input Functions
+	 */
 	private void CheckForInput()
 	{
 #if UNITY_EDITOR
@@ -110,7 +140,7 @@ public class GameManager : MonoBehaviour {
 		}
 		
 #elif UNITY_ANDROID
-		
+		// DO ANDROID STUFF
 		
 #elif UNITY_IPHONE		
 		// If there are no touches, double check all feet destroyed
@@ -128,8 +158,7 @@ public class GameManager : MonoBehaviour {
 			
 			return;
 		}
-		
-		
+				
 		foreach(Touch touch in Input.touches) {
 			
 			// Calculate touches world space position.
@@ -179,4 +208,25 @@ public class GameManager : MonoBehaviour {
 		}
 #endif
 	}
+	
+	void SpeedSliderChange( IUIObject obj )
+    {
+        if(obj == upDownSpeedSlider)
+		{
+			upDownSpeed = upDownSpeedSlider.Value * UPDOWN_SPEED_MAX;
+			if( upDownSpeed <= 0.0 )
+				upDownSpeed = 1.0f;
+			
+			print("Updown Speed: "+upDownSpeed);            
+		}
+		
+		else if(obj == inOutSpeedSlider)
+		{
+			inOutSpeed = inOutSpeedSlider.Value * INOUT_SPEED_MAX;			
+			if( inOutSpeed <= 0.0 )
+				inOutSpeed = 1.0f;
+			
+			print("InOut Speed: "+inOutSpeed);            
+		}
+    }
 }

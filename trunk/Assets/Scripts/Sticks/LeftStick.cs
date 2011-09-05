@@ -15,17 +15,17 @@ public class LeftStick : Stick {
 	
 	public override void StartIn()
 	{
-		iTween.MoveBy(gameObject, iTween.Hash("x", inOutDist, 
+		iTween.MoveBy(gameObject, iTween.Hash("x", GameManager.instance.inOutDist, 
 		                                      "easeType", easeTypeIn, 		                                      
-		                                      "speed", speed,
+		                                      "speed", GameManager.instance.inOutSpeed,
 		                                      "oncomplete", "InComplete"));
 	}
 		
 	public override void StartOut()
 	{
-		iTween.MoveBy(gameObject, iTween.Hash("x", -inOutDist, 
+		iTween.MoveBy(gameObject, iTween.Hash("x", -GameManager.instance.inOutDist, 
 		                                      "easeType", easeTypeOut, 		                                     
-		                                      "speed", speed,
+		                                      "speed", GameManager.instance.inOutSpeed,
 		                                      "oncomplete", "OutComplete"));
 	}
 		
