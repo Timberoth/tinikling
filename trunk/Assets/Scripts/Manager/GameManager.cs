@@ -18,7 +18,8 @@ public class GameManager : MonoBehaviour {
 	 */	
 	// Prefab References used to spawn objects at run time
 	public GameObject footObject;
-	
+		
+	// Speed and Distance Variables
 	public float upDownDist = 3.0f;
 	public float inOutDist = 5.0f;
 		
@@ -28,8 +29,9 @@ public class GameManager : MonoBehaviour {
 	public float INOUT_SPEED_MAX = 40.0f;
 	public float inOutSpeed;
 	
+	// Speed Sliders
 	public UISlider upDownSpeedSlider;
-	public UISlider inOutSpeedSlider;
+	public UISlider inOutSpeedSlider;	
 		
 	
 	/*
@@ -41,12 +43,21 @@ public class GameManager : MonoBehaviour {
 	// Feet positioning
 	private Vector3[] feetPositions;
 	
-	// Input Code
-	private bool fingerPressed;
-	
+	// Track if any fingers are touching the screen.
+	private bool fingerPressed;	
 #if UNITY_EDITOR
 	private bool mouseHeld = false;
 #endif
+	
+	// Score ticks up from 0
+	public int score { get; set; }
+	
+	// Number of starting lives
+	public int lives { get; set; }
+	 
+	// GUI Code
+	private SpriteText scoreText;
+	private SpriteText livesText;
 	
 	
 	/*
@@ -63,6 +74,7 @@ public class GameManager : MonoBehaviour {
 	}
 	
 	
+	
 	/*
 	 * Unity Functions 
 	 */
@@ -70,6 +82,9 @@ public class GameManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		
+		// Initialize everything to the defaults.
+		lives = 3;
+		score = 0;		
 		upDownSpeed = UPDOWN_SPEED_MAX/2.0f;
 		inOutSpeed = INOUT_SPEED_MAX/2.0f;
 		
@@ -79,6 +94,20 @@ public class GameManager : MonoBehaviour {
 		// Register our delegate with both controls:
         upDownSpeedSlider.AddValueChangedDelegate(SpeedSliderChange);
 		inOutSpeedSlider.AddValueChangedDelegate(SpeedSliderChange);
+		
+		GameObject scoreTextObject = GameObject.Find("ScoreText");
+		scoreText = scoreTextObject.GetComponent<SpriteText>();
+		if( scoreText )
+		{
+			scoreText.Text = "Score: "+score;	
+		}
+		
+		GameObject livesTextObject = GameObject.Find("LivesText");
+		livesText = livesTextObject.GetComponent<SpriteText>();
+		if( livesText )
+		{
+			livesText.Text = "Lives: "+lives;	
+		}
 	}
 	
 	// Update is called once per frame
@@ -88,7 +117,7 @@ public class GameManager : MonoBehaviour {
 	}
 	
 	/*
-	 * Game Functions
+	 * Gameplay Functions
 	 */
 	public GameObject SpawnFoot( Vector3 position ){
 	
@@ -96,7 +125,79 @@ public class GameManager : MonoBehaviour {
 			return Instantiate( footObject, position, Quaternion.identity) as GameObject;
 		else
 			return null;
+	}
+	
+	// Restart the level
+	public void RestartLevel()
+	{
+		// Reset Score
+		score = 0;
+		UpdateScore();
+		
+		// Reset Combo Multipliers
+		
+		// Reset Lives
+		lives = 3;
+		if( livesText )
+		{
+			livesText.Text = "Lives: "+lives;	
+		}		
+		
+		// Reset Speeds				
+		upDownSpeed = UPDOWN_SPEED_MAX/2.0f;
+		inOutSpeed = INOUT_SPEED_MAX/2.0f;
 	}	
+	
+	
+	/*
+	 * GUI Functions
+	 */
+	// Update Lives Text
+	public void UpdateLives()
+	{		
+		// Restart the level
+		if( lives <= 0 )
+		{
+			GameManager.instance.RestartLevel();
+			return;
+		}
+		
+		if( livesText )
+		{
+			livesText.Text = "Lives: "+lives;	
+		}		
+	}
+	
+	// Update Score Text
+	public void UpdateScore()
+	{
+		if( scoreText )
+		{
+			scoreText.Text = "Score: "+score;	
+		}
+	}
+	
+	// Called when the slider moves
+	void SpeedSliderChange( IUIObject obj )
+    {
+        if(obj == upDownSpeedSlider)
+		{
+			upDownSpeed = upDownSpeedSlider.Value * UPDOWN_SPEED_MAX;
+			if( upDownSpeed <= 0.0 )
+				upDownSpeed = 1.0f;
+			
+			print("Updown Speed: "+upDownSpeed);            
+		}
+		
+		else if(obj == inOutSpeedSlider)
+		{
+			inOutSpeed = inOutSpeedSlider.Value * INOUT_SPEED_MAX;			
+			if( inOutSpeed <= 0.0 )
+				inOutSpeed = 1.0f;
+			
+			print("InOut Speed: "+inOutSpeed);            
+		}
+    }	
 	
 	
 	/*
@@ -104,9 +205,9 @@ public class GameManager : MonoBehaviour {
 	 */
 	private void CheckForInput()
 	{
-#if UNITY_EDITOR
+#if UNITY_EDITOR				
 		// Check if mouse is down for the first time.		
-		bool mouseDown = Input.GetMouseButtonDown(0);		
+		bool mouseDown = Input.GetMouseButtonDown(0);
 		if( mouseDown && !mouseHeld )
 		{			
 			// Position
@@ -121,7 +222,7 @@ public class GameManager : MonoBehaviour {
 			mouseHeld = true;			
 			
 			// Start particle effect
-		}
+		}		
 		
 		// Check if the mouse has just been released.
 		bool mouseUp = Input.GetMouseButtonUp(0);
@@ -138,7 +239,7 @@ public class GameManager : MonoBehaviour {
 			
 			// End particle effect			
 		}
-		
+				
 #elif UNITY_ANDROID
 		// DO ANDROID STUFF
 		
@@ -187,6 +288,7 @@ public class GameManager : MonoBehaviour {
 				}
 			}
 			
+			// Check if the foot has been moved
 			else if( touch.phase == TouchPhase.Ended || fingerDelta > 5.0 || touch.phase == TouchPhase.Canceled )
 			{
 				for( int i = 0; i < feetPositions.Length; i++ )
@@ -207,26 +309,5 @@ public class GameManager : MonoBehaviour {
 			}
 		}
 #endif
-	}
-	
-	void SpeedSliderChange( IUIObject obj )
-    {
-        if(obj == upDownSpeedSlider)
-		{
-			upDownSpeed = upDownSpeedSlider.Value * UPDOWN_SPEED_MAX;
-			if( upDownSpeed <= 0.0 )
-				upDownSpeed = 1.0f;
-			
-			print("Updown Speed: "+upDownSpeed);            
-		}
-		
-		else if(obj == inOutSpeedSlider)
-		{
-			inOutSpeed = inOutSpeedSlider.Value * INOUT_SPEED_MAX;			
-			if( inOutSpeed <= 0.0 )
-				inOutSpeed = 1.0f;
-			
-			print("InOut Speed: "+inOutSpeed);            
-		}
-    }
+	}	
 }

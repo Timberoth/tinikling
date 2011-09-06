@@ -7,6 +7,9 @@ public class Foot : MonoBehaviour {
 	
 	private AudioSource footHit = null;
 	
+	// Used to make sure the foot isn't triggered twice.
+	private bool stillAlive = true;
+	
 	// Use this for initialization
 	void Start () {		
 		
@@ -15,21 +18,32 @@ public class Foot : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		// As long as the foot exists, it gains points
+		GameManager.instance.score++;
+		GameManager.instance.UpdateScore();	
 	}
 	
 	void OnTriggerEnter (Collider other) {
-		// Play sound
-		if( footHit != null )
+		
+		if( stillAlive )
 		{
-			AudioSource.PlayClipAtPoint(footHit.clip, Vector3.zero);			
+			stillAlive = false;
+				
+			// Play sound
+			if( footHit != null )
+			{
+				AudioSource.PlayClipAtPoint(footHit.clip, Vector3.zero);			
+			}
+			
+			// Play particle FX
+			
+			// Lose a life
+			GameManager.instance.lives--;
+			GameManager.instance.UpdateLives();			
+			
+			// Destroy object
+			Destroy( this.gameObject );			
 		}
-		
-		// Play particle FX
-		
-		
-		// Destroy object
-		Destroy( this.gameObject );
 	}
 	
 	
