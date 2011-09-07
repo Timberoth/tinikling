@@ -3,24 +3,25 @@ using System.Collections;
 
 [RequireComponent (typeof (Collider))]
 public abstract class Stick : MonoBehaviour {
-	
-	// Constants
-	protected const string easeTypeDown = "easeInBack"; 
-	protected const string easeTypeUp = "easeOutQuint"; 	
-	protected const string easeTypeIn = "easeInBack"; 
-	protected const string easeTypeOut = "easeOutQuint"; 
-	
+		
 	// Public
 	public string stickName;
+	
+	// Track whether the stick should be active/moving or not.
+	// This flag can be flipped by the GameManager to stop the
+	// game from progressing.
+	public bool stickActive = false;
 	
 	// Protected
 	protected AudioSource groundHit;
 	protected AudioSource stickHit;
 	
-	// Privates
-	
+	// Privates	
 	// Track up/down cycles to begin "in" motion
 	private int upDownCounter = 0;
+	
+	// Track in/out cycles to begin "up" motion
+	private int inOutCounter = 0;
 	
 	
 	// Abstract Functions
@@ -28,22 +29,37 @@ public abstract class Stick : MonoBehaviour {
 	public abstract void StartIn();	
 	public abstract void StartOut();	
 	
-	// Normal Functions
+	// Unity Functions
 	
 	// Use this for initialization
-	void Start () {	
-		
+	void Start () {			
 		// Set up audio references
 		InitAudio();
-		
-		// Get the sticks moving
-		StartUp();	
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	
 	}
+	
+	
+	// Stick Functions
+	
+	public void StartMoving()
+	{
+		stickActive = true;
+		StartUp();
+	}
+	
+	
+	public void StopMoving()
+	{
+		// Flip the flag so the sticks don't start another cycle.
+		stickActive = false;
+		
+		// Wait for signal to start again
+	}
+		
 	
 	protected void InitAudio()
 	{
@@ -63,9 +79,9 @@ public abstract class Stick : MonoBehaviour {
 		
 	protected void StartDown()
 	{
-		iTween.MoveBy(gameObject, iTween.Hash("z", GameManager.instance.upDownDist,
-		                                      "easeType", easeTypeDown,
-		                                      "speed", GameManager.instance.upDownSpeed,
+		iTween.MoveBy(gameObject, iTween.Hash("z", GameManager.instance.beat.upDownDist,
+		                                      "easeType", GameManager.instance.beat.easeTypeDown,
+		                                      "speed", GameManager.instance.beat.upDownSpeed,
 		                                      "oncomplete", "DownComplete"));
 	}
 	
@@ -76,7 +92,8 @@ public abstract class Stick : MonoBehaviour {
 		// Play sound
 		groundHit.Play();
 		
-		if( upDownCounter >= 2 )
+		// TODO Pull this value from the current BeatPattern.
+		if( upDownCounter >= GameManager.instance.beat.upDownHits )
 		{
 			// Reset up down counter
 			upDownCounter = 0;
@@ -93,9 +110,9 @@ public abstract class Stick : MonoBehaviour {
 	
 	protected void StartUp()
 	{
-		iTween.MoveBy(gameObject, iTween.Hash("z", -GameManager.instance.upDownDist, 
-		                                      "speed", GameManager.instance.upDownSpeed,
-		                                      "easeType", easeTypeUp, 		                                      
+		iTween.MoveBy(gameObject, iTween.Hash("z", -GameManager.instance.beat.upDownDist, 
+		                                      "speed", GameManager.instance.beat.upDownSpeed,
+		                                      "easeType", GameManager.instance.beat.easeTypeUp, 		                                      
 		                                      "oncomplete", "UpComplete"));
 	}
 	
@@ -119,14 +136,32 @@ public abstract class Stick : MonoBehaviour {
 	
 	public void OutComplete()
 	{
-		// Update tempo if necessary
-		
 		// Play sound FX
 		
 		// Play particles
 		
-		// For now go up
-		StartUp();
-	}
-	
+		inOutCounter++;
+		
+		// TODO Pull this value from the current BeatPattern.
+		if( inOutCounter >= GameManager.instance.beat.inOutHits )
+		{
+			inOutCounter = 0;
+			
+			if( stickActive )
+			{
+				// Start the next cycle
+				StartUp();	
+			}		
+		}
+		else
+		{
+			if( stickActive )
+			{
+				// Start the next cycle
+				StartIn();	
+			}	
+		}
+		
+		// Update tempo if necessary		
+	}	
 }

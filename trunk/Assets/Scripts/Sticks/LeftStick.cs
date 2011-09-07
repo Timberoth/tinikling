@@ -15,27 +15,17 @@ public class LeftStick : Stick {
 	
 	public override void StartIn()
 	{
-		iTween.MoveBy(gameObject, iTween.Hash("x", GameManager.instance.inOutDist, 
-		                                      "easeType", easeTypeIn, 		                                      
-		                                      "speed", GameManager.instance.inOutSpeed,
+		iTween.MoveBy(gameObject, iTween.Hash("x", GameManager.instance.beat.inOutDist, 
+		                                      "easeType", GameManager.instance.beat.easeTypeIn, 		                                      
+		                                      "speed", GameManager.instance.beat.inOutSpeed,
 		                                      "oncomplete", "InComplete"));
 	}
 		
 	public override void StartOut()
 	{
-		iTween.MoveBy(gameObject, iTween.Hash("x", -GameManager.instance.inOutDist, 
-		                                      "easeType", easeTypeOut, 		                                     
-		                                      "speed", GameManager.instance.inOutSpeed,
+		iTween.MoveBy(gameObject, iTween.Hash("x", -GameManager.instance.beat.inOutDist, 
+		                                      "easeType", GameManager.instance.beat.easeTypeOut, 		                                     
+		                                      "speed", GameManager.instance.beat.inOutSpeed,
 		                                      "oncomplete", "OutComplete"));
-	}
-		
-	
-	// Normal Functions
-		
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-	
+	}	
 }
