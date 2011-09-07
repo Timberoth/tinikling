@@ -44,7 +44,9 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Beat\BeatPattern.cs" />
      <Compile Include="Assets\Scripts\Feet\Foot.cs" />
+     <Compile Include="Assets\Scripts\Manager\BeatManager.cs" />
      <Compile Include="Assets\Scripts\Manager\GameManager.cs" />
      <Compile Include="Assets\Scripts\Sticks\LeftStick.cs" />
      <Compile Include="Assets\Scripts\Sticks\RightStick.cs" />

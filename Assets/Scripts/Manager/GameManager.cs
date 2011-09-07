@@ -23,11 +23,11 @@ public class GameManager : MonoBehaviour {
 	public float upDownDist = 3.0f;
 	public float inOutDist = 5.0f;
 		
-	public float UPDOWN_SPEED_MAX = 40.0f;
-	public float upDownSpeed;
-	
+	public float UPDOWN_SPEED_MAX = 40.0f;	
 	public float INOUT_SPEED_MAX = 40.0f;
-	public float inOutSpeed;
+	
+	// Current Beat being used.
+	public BeatPattern beat;
 	
 	// Speed Sliders
 	public UISlider upDownSpeedSlider;
@@ -48,6 +48,9 @@ public class GameManager : MonoBehaviour {
 #if UNITY_EDITOR
 	private bool mouseHeld = false;
 #endif
+	
+	// Stick Component refs
+	private Stick []sticks;
 	
 	// Score ticks up from 0
 	public int score { get; set; }
@@ -85,16 +88,23 @@ public class GameManager : MonoBehaviour {
 		// Initialize everything to the defaults.
 		lives = 3;
 		score = 0;		
-		upDownSpeed = UPDOWN_SPEED_MAX/2.0f;
-		inOutSpeed = INOUT_SPEED_MAX/2.0f;
 		
+		// Feet
 		feet = new GameObject[]{null, null};
 		feetPositions = new Vector3[]{new Vector3(0,0,0), new Vector3(0,0,0)};
+		
+		
+		// Beat - Start with the first beat
+		beat = BeatManager.instance.GetBeat(0);
 		
 		// Register our delegate with both controls:
         upDownSpeedSlider.AddValueChangedDelegate(SpeedSliderChange);
 		inOutSpeedSlider.AddValueChangedDelegate(SpeedSliderChange);
 		
+		
+		// Cache object references
+		
+		// Score Text
 		GameObject scoreTextObject = GameObject.Find("ScoreText");
 		scoreText = scoreTextObject.GetComponent<SpriteText>();
 		if( scoreText )
@@ -102,12 +112,39 @@ public class GameManager : MonoBehaviour {
 			scoreText.Text = "Score: "+score;	
 		}
 		
+		// Lives Text
 		GameObject livesTextObject = GameObject.Find("LivesText");
 		livesText = livesTextObject.GetComponent<SpriteText>();
 		if( livesText )
 		{
 			livesText.Text = "Lives: "+lives;	
 		}
+		
+		// Sticks
+		sticks = new Stick[]{null,null};
+		string[] stickNames = {"LeftStick", "RightStick"};
+		for( int i = 0; i < stickNames.Length; i++ )
+		{
+			GameObject stickObject = GameObject.Find(stickNames[i]);
+			if( stickObject )
+			{
+				Stick stick = stickObject.GetComponent<Stick>();
+				if( stick )
+				{
+					sticks[i] = stick;
+				}							
+			}	
+			// THIS SHOULD NEVER HAPPEN
+			else
+			{
+				print("ERROR - Could not find LeftStick or RightStick.");
+				Debug.Break();
+			}
+		}	
+		
+		
+		// Get the game going now
+		StartSticks();
 	}
 	
 	// Update is called once per frame
@@ -142,11 +179,29 @@ public class GameManager : MonoBehaviour {
 		{
 			livesText.Text = "Lives: "+lives;	
 		}		
-		
-		// Reset Speeds				
-		upDownSpeed = UPDOWN_SPEED_MAX/2.0f;
-		inOutSpeed = INOUT_SPEED_MAX/2.0f;
+			
+		// Reset speed
 	}	
+	
+	// Get the sticks moving again.
+	public void StartSticks()
+	{		
+		foreach( Stick stick in sticks )
+		{			
+			stick.StartMoving();		
+		}	
+	}
+	
+	// This won't stop the sticks immediately but will prevent them
+	// from starting another cycle.
+	public void StopSticks()
+	{	
+		foreach( Stick stick in sticks )
+		{			
+			stick.StopMoving();		
+		}	
+	}
+	
 	
 	
 	/*
@@ -174,28 +229,35 @@ public class GameManager : MonoBehaviour {
 		if( scoreText )
 		{
 			scoreText.Text = "Score: "+score;	
-		}
+		}		
 	}
+	
+	public void NextBeat()
+	{
+		beat = BeatManager.instance.GetNextBeat();
+	}
+	
+	// GUI Events
 	
 	// Called when the slider moves
 	void SpeedSliderChange( IUIObject obj )
     {
         if(obj == upDownSpeedSlider)
 		{
-			upDownSpeed = upDownSpeedSlider.Value * UPDOWN_SPEED_MAX;
-			if( upDownSpeed <= 0.0 )
-				upDownSpeed = 1.0f;
+			beat.upDownSpeed = upDownSpeedSlider.Value * UPDOWN_SPEED_MAX;
+			if( beat.upDownSpeed <= 0.0 )
+				beat.upDownSpeed = 1.0f;
 			
-			print("Updown Speed: "+upDownSpeed);            
+			print("Updown Speed: "+beat.upDownSpeed);            
 		}
 		
 		else if(obj == inOutSpeedSlider)
 		{
-			inOutSpeed = inOutSpeedSlider.Value * INOUT_SPEED_MAX;			
-			if( inOutSpeed <= 0.0 )
-				inOutSpeed = 1.0f;
+			beat.inOutSpeed = inOutSpeedSlider.Value * INOUT_SPEED_MAX;			
+			if( beat.inOutSpeed <= 0.0 )
+				beat.inOutSpeed = 1.0f;
 			
-			print("InOut Speed: "+inOutSpeed);            
+			print("InOut Speed: "+beat.inOutSpeed);            
 		}
     }	
 	
