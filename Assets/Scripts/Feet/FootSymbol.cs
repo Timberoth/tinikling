@@ -6,14 +6,14 @@ public class FootSymbol : MonoBehaviour {
 	/// <summary>
 	/// Enums
 	/// </summary>
-	enum FootState
+	public enum FootState
 	{
 		Down,
 		Up,
 		Inactive
 	}
 		
-	enum Foot
+	public enum Foot
 	{
 		Left,
 		Right
@@ -74,36 +74,9 @@ public class FootSymbol : MonoBehaviour {
 		UpdateFoot( Foot.Left, FootState.Down, false );
 	}
 	
-	private int DEBUG_TIMER = 0;
-	// Update is called once per frame
-	void Update () {
-	
-		DEBUG_TIMER++;
-		
-		if( DEBUG_TIMER >= 90 )
-		{
-			DEBUG_TIMER = 0;
-			
-			if( state == FootState.Down )
-			{
-				UpdateFoot( Foot.Left, FootState.Up, false );
-			}
-			
-			else if( state == FootState.Up )
-			{
-				UpdateFoot( Foot.Left, FootState.Inactive, false );
-			}
-			
-			else if( state == FootState.Inactive )
-			{
-				UpdateFoot( Foot.Left, FootState.Down, false );
-			}
-		}
-	}
-	
 	
 	// Update the foot values.
-	void UpdateFoot( Foot footType, FootState footState, bool footFlipped ) {
+	public void UpdateFoot( Foot footType, FootState footState, bool footFlipped ) {
 		
 		bool needNewModel = false;	
 		
