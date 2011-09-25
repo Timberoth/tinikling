@@ -47,7 +47,7 @@ public class FootPattern1 : MonoBehaviour {
 		footEvent.time = 0.0f;
 		footEvent.foot = FootSymbol.Foot.Left;
 		footEvent.state = FootSymbol.FootState.Down;
-		footEvent.flipped = false;
+		footEvent.oneShot = true;
 		activeQueue.Enqueue( footEvent );
 		
 		// Right foot down
@@ -56,25 +56,35 @@ public class FootPattern1 : MonoBehaviour {
 		footEvent.time = 0.0f;
 		footEvent.foot = FootSymbol.Foot.Right;
 		footEvent.state = FootSymbol.FootState.Down;
-		footEvent.flipped = false;
+		footEvent.oneShot = true;
 		activeQueue.Enqueue( footEvent );
+		
+		++DEBUGTIME;
 		
 		// Right foot inactive
 		footEvent = new FootPatternEvent();
 		footEvent.symbolName = "FootSymbol2";
-		footEvent.time = ++DEBUGTIME;
+		footEvent.time = DEBUGTIME;
 		footEvent.foot = FootSymbol.Foot.Right;
 		footEvent.state = FootSymbol.FootState.Inactive;
-		footEvent.flipped = false;
+		footEvent.oneShot = true;
 		activeQueue.Enqueue( footEvent );
+		
+		// Right foot inactive
+		footEvent = new FootPatternEvent();
+		footEvent.symbolName = "FootSymbol3";
+		footEvent.time = DEBUGTIME;
+		footEvent.foot = FootSymbol.Foot.Right;
+		footEvent.state = FootSymbol.FootState.Inactive;		
+		activeQueue.Enqueue( footEvent );
+				
 		
 		// Right foot down
 		footEvent = new FootPatternEvent();
 		footEvent.symbolName = "FootSymbol4";
 		footEvent.time = ++DEBUGTIME;
 		footEvent.foot = FootSymbol.Foot.Right;
-		footEvent.state = FootSymbol.FootState.Down;
-		footEvent.flipped = false;
+		footEvent.state = FootSymbol.FootState.Down;		
 		activeQueue.Enqueue( footEvent );
 		
 		
@@ -84,7 +94,7 @@ public class FootPattern1 : MonoBehaviour {
 		footEvent.time = ++DEBUGTIME;
 		footEvent.foot = FootSymbol.Foot.Left;
 		footEvent.state = FootSymbol.FootState.Inactive;
-		footEvent.flipped = false;
+		
 		activeQueue.Enqueue( footEvent );
 		
 		// Left foot down
@@ -93,7 +103,6 @@ public class FootPattern1 : MonoBehaviour {
 		footEvent.time = ++DEBUGTIME;
 		footEvent.foot = FootSymbol.Foot.Left;
 		footEvent.state = FootSymbol.FootState.Down;
-		footEvent.flipped = false;
 		activeQueue.Enqueue( footEvent );
 		
 		// Right foot inactive
@@ -102,7 +111,6 @@ public class FootPattern1 : MonoBehaviour {
 		footEvent.time = ++DEBUGTIME;
 		footEvent.foot = FootSymbol.Foot.Right;
 		footEvent.state = FootSymbol.FootState.Inactive;
-		footEvent.flipped = false;
 		activeQueue.Enqueue( footEvent );
 		
 		// Right foot down
@@ -111,7 +119,6 @@ public class FootPattern1 : MonoBehaviour {
 		footEvent.time = ++DEBUGTIME;
 		footEvent.foot = FootSymbol.Foot.Right;
 		footEvent.state = FootSymbol.FootState.Down;
-		footEvent.flipped = false;
 		activeQueue.Enqueue( footEvent );
 		
 		// Left foot inactive
@@ -120,7 +127,6 @@ public class FootPattern1 : MonoBehaviour {
 		footEvent.time = ++DEBUGTIME;
 		footEvent.foot = FootSymbol.Foot.Left;
 		footEvent.state = FootSymbol.FootState.Inactive;
-		footEvent.flipped = false;
 		activeQueue.Enqueue( footEvent );
 		
 		// Left foot up
@@ -129,7 +135,6 @@ public class FootPattern1 : MonoBehaviour {
 		footEvent.time = ++DEBUGTIME;
 		footEvent.foot = FootSymbol.Foot.Left;
 		footEvent.state = FootSymbol.FootState.Up;
-		footEvent.flipped = false;
 		activeQueue.Enqueue( footEvent );
 		
 		// Left foot inactive
@@ -138,7 +143,6 @@ public class FootPattern1 : MonoBehaviour {
 		footEvent.time = ++DEBUGTIME;
 		footEvent.foot = FootSymbol.Foot.Left;
 		footEvent.state = FootSymbol.FootState.Inactive;
-		footEvent.flipped = false;
 		activeQueue.Enqueue( footEvent );
 				
 		// Left foot down
@@ -147,7 +151,6 @@ public class FootPattern1 : MonoBehaviour {
 		footEvent.time = ++DEBUGTIME;
 		footEvent.foot = FootSymbol.Foot.Left;
 		footEvent.state = FootSymbol.FootState.Down;
-		footEvent.flipped = false;
 		activeQueue.Enqueue( footEvent );
 		
 	
@@ -157,7 +160,6 @@ public class FootPattern1 : MonoBehaviour {
 		footEvent.time = ++DEBUGTIME;
 		footEvent.foot = FootSymbol.Foot.Right;
 		footEvent.state = FootSymbol.FootState.Inactive;
-		footEvent.flipped = false;
 		activeQueue.Enqueue( footEvent );
 		
 		// Right foot down
@@ -166,7 +168,6 @@ public class FootPattern1 : MonoBehaviour {
 		footEvent.time = ++DEBUGTIME;
 		footEvent.foot = FootSymbol.Foot.Right;
 		footEvent.state = FootSymbol.FootState.Down;
-		footEvent.flipped = false;
 		activeQueue.Enqueue( footEvent );
 		
 		
@@ -175,8 +176,7 @@ public class FootPattern1 : MonoBehaviour {
 		footEvent.symbolName = "FootSymbol3";
 		footEvent.time = ++DEBUGTIME;
 		footEvent.foot = FootSymbol.Foot.Left;
-		footEvent.state = FootSymbol.FootState.Inactive;
-		footEvent.flipped = false;
+		footEvent.state = FootSymbol.FootState.Inactive;	
 		activeQueue.Enqueue( footEvent );
 		
 		// Left foot down
@@ -185,7 +185,6 @@ public class FootPattern1 : MonoBehaviour {
 		footEvent.time = ++DEBUGTIME;
 		footEvent.foot = FootSymbol.Foot.Left;
 		footEvent.state = FootSymbol.FootState.Down;
-		footEvent.flipped = false;
 		activeQueue.Enqueue( footEvent );
 		
 		
@@ -195,7 +194,6 @@ public class FootPattern1 : MonoBehaviour {
 		footEvent.time = ++DEBUGTIME;
 		footEvent.foot = FootSymbol.Foot.Right;
 		footEvent.state = FootSymbol.FootState.Inactive;
-		footEvent.flipped = false;
 		activeQueue.Enqueue( footEvent );
 		
 		// Right foot up
@@ -204,34 +202,14 @@ public class FootPattern1 : MonoBehaviour {
 		footEvent.time = ++DEBUGTIME;
 		footEvent.foot = FootSymbol.Foot.Right;
 		footEvent.state = FootSymbol.FootState.Up;
-		footEvent.flipped = false;
 		activeQueue.Enqueue( footEvent );
-		
-		// TODO IT NEEDS TO REPEAT HERE, but for debugging, I'm going to 
-		// make it end as it started
-		// Right foot inactive
-		footEvent = new FootPatternEvent();
-		footEvent.symbolName = "FootSymbol3";
-		footEvent.time = ++DEBUGTIME;
-		footEvent.foot = FootSymbol.Foot.Right;
-		footEvent.state = FootSymbol.FootState.Inactive;
-		footEvent.flipped = false;
-		activeQueue.Enqueue( footEvent );
-		
-		// Right foot down
-		footEvent = new FootPatternEvent();
-		footEvent.symbolName = "FootSymbol2";
-		footEvent.time = ++DEBUGTIME;
-		footEvent.foot = FootSymbol.Foot.Right;
-		footEvent.state = FootSymbol.FootState.Down;
-		footEvent.flipped = false;
-		activeQueue.Enqueue( footEvent );
-		
+				
+		// It all repeats from here.
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		patternTimer += Time.deltaTime;
+		patternTimer += ( Time.deltaTime * currentSpeed );
 		
 		bool doneFiringEvents = false;
 		
@@ -245,8 +223,11 @@ public class FootPattern1 : MonoBehaviour {
 				if( Math.Abs( footEvent.time - patternTimer ) <= 0.05 || (patternTimer >= footEvent.time) )
 				{
 					// Pop the top off the active queue and push it on the inactive queue
+					// if it's not a oneshot event
 					footEvent = activeQueue.Dequeue() as FootPatternEvent;
-					inactiveQueue.Enqueue( footEvent );
+					
+					if( !footEvent.oneShot )
+						inactiveQueue.Enqueue( footEvent );
 					
 					// Now do the actual stuff of the event.
 					GameObject footSymbolObject = GameObject.Find( footEvent.symbolName );
