@@ -20,6 +20,12 @@ public class FootSymbol : MonoBehaviour {
 	}
 	
 	// Publics
+	// Starting Foot - Left, Right
+	public Foot startingFoot = Foot.Left;
+	
+	// Starting Foot State - Up, Down, Inactive
+	public FootState startingFootState = FootState.Inactive;
+	
 	public GameObject leftFootUpIcon = null;
 	public GameObject leftFootDownIcon = null;
 	public GameObject rightFootUpIcon = null;
@@ -70,8 +76,8 @@ public class FootSymbol : MonoBehaviour {
 			Debug.Break();
 		}
 		
-		// All symbols are inactive, non-flipped, left feet by default.
-		UpdateFoot( Foot.Left, FootState.Down, false );
+		// Setup the foot based on the settings from the editor
+		UpdateFoot( startingFoot, startingFootState, false );
 	}
 	
 	
@@ -119,6 +125,9 @@ public class FootSymbol : MonoBehaviour {
 				else if( state == FootState.Up )
 				{
 					footObject = Instantiate( leftFootUpIcon, this.transform.position, this.transform.rotation) as GameObject;
+					Vector3 newPosition = footObject.transform.position;
+					newPosition.z -= 5.0f;
+					footObject.transform.position = newPosition;
 				}
 			}
 			
@@ -132,6 +141,9 @@ public class FootSymbol : MonoBehaviour {
 				else if( state == FootState.Up )
 				{
 					footObject = Instantiate( rightFootUpIcon, this.transform.position, this.transform.rotation) as GameObject;
+					Vector3 newPosition = footObject.transform.position;
+					newPosition.z -= 5.0f;
+					footObject.transform.position = newPosition;
 				}
 			}
 		}
