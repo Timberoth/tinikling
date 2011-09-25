@@ -8,9 +8,9 @@
       <File FileName="Assets\Scripts\Sticks\RightStick.cs" Line="28" Column="76" />
       <File FileName="Assets\Scripts\Beat\BeatPattern.cs" Line="13" Column="9" />
       <File FileName="Assets\Scripts\Manager\BeatManager.cs" Line="93" Column="10" />
-      <File FileName="Assets\Scripts\Feet\FootSymbol.cs" Line="77" Column="2" />
-      <File FileName="Assets\Scripts\Feet\FootPatternEvent.cs" Line="17" Column="22" />
-      <File FileName="Assets\Scripts\Feet\FootPattern1.cs" Line="100" Column="23" />
+      <File FileName="Assets\Scripts\Feet\FootSymbol.cs" Line="132" Column="5" />
+      <File FileName="Assets\Scripts\Feet\FootPatternEvent.cs" Line="19" Column="2" />
+      <File FileName="Assets\Scripts\Feet\FootPattern1.cs" Line="212" Column="38" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
