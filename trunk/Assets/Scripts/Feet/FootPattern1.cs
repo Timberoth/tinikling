@@ -38,6 +38,9 @@ public class FootPattern1 : MonoBehaviour {
 		// Create all the FootPatternEvents.  
 		// TODO have this info come from an XML file
 		
+		// DEBUG TIME
+		float DEBUGTIME = 0.0f;
+		
 		// Left foot down
 		FootPatternEvent footEvent = new FootPatternEvent();
 		footEvent.symbolName = "FootSymbol1";
@@ -56,10 +59,10 @@ public class FootPattern1 : MonoBehaviour {
 		footEvent.flipped = false;
 		activeQueue.Enqueue( footEvent );
 		
-		// Right foot up
+		// Right foot inactive
 		footEvent = new FootPatternEvent();
 		footEvent.symbolName = "FootSymbol2";
-		footEvent.time = 1.0f;
+		footEvent.time = ++DEBUGTIME;
 		footEvent.foot = FootSymbol.Foot.Right;
 		footEvent.state = FootSymbol.FootState.Inactive;
 		footEvent.flipped = false;
@@ -68,67 +71,216 @@ public class FootPattern1 : MonoBehaviour {
 		// Right foot down
 		footEvent = new FootPatternEvent();
 		footEvent.symbolName = "FootSymbol4";
-		footEvent.time = 1.2f;
+		footEvent.time = ++DEBUGTIME;
 		footEvent.foot = FootSymbol.Foot.Right;
 		footEvent.state = FootSymbol.FootState.Down;
 		footEvent.flipped = false;
 		activeQueue.Enqueue( footEvent );
 		
-		// Left foot up
+		
+		// Left foot inactive
 		footEvent = new FootPatternEvent();
-		footEvent.symbolName = "FootSymbol4";
-		footEvent.time = 1.3f;
+		footEvent.symbolName = "FootSymbol1";
+		footEvent.time = ++DEBUGTIME;
 		footEvent.foot = FootSymbol.Foot.Left;
-		footEvent.state = FootSymbol.FootState.Up;
+		footEvent.state = FootSymbol.FootState.Inactive;
 		footEvent.flipped = false;
 		activeQueue.Enqueue( footEvent );
 		
 		// Left foot down
 		footEvent = new FootPatternEvent();
 		footEvent.symbolName = "FootSymbol3";
-		footEvent.time = 1.5f;
+		footEvent.time = ++DEBUGTIME;
 		footEvent.foot = FootSymbol.Foot.Left;
 		footEvent.state = FootSymbol.FootState.Down;
 		footEvent.flipped = false;
 		activeQueue.Enqueue( footEvent );
+		
+		// Right foot inactive
+		footEvent = new FootPatternEvent();
+		footEvent.symbolName = "FootSymbol4";
+		footEvent.time = ++DEBUGTIME;
+		footEvent.foot = FootSymbol.Foot.Right;
+		footEvent.state = FootSymbol.FootState.Inactive;
+		footEvent.flipped = false;
+		activeQueue.Enqueue( footEvent );
+		
+		// Right foot down
+		footEvent = new FootPatternEvent();
+		footEvent.symbolName = "FootSymbol6";
+		footEvent.time = ++DEBUGTIME;
+		footEvent.foot = FootSymbol.Foot.Right;
+		footEvent.state = FootSymbol.FootState.Down;
+		footEvent.flipped = false;
+		activeQueue.Enqueue( footEvent );
+		
+		// Left foot inactive
+		footEvent = new FootPatternEvent();
+		footEvent.symbolName = "FootSymbol3";
+		footEvent.time = ++DEBUGTIME;
+		footEvent.foot = FootSymbol.Foot.Left;
+		footEvent.state = FootSymbol.FootState.Inactive;
+		footEvent.flipped = false;
+		activeQueue.Enqueue( footEvent );
+		
+		// Left foot up
+		footEvent = new FootPatternEvent();
+		footEvent.symbolName = "FootSymbol4";
+		footEvent.time = ++DEBUGTIME;
+		footEvent.foot = FootSymbol.Foot.Left;
+		footEvent.state = FootSymbol.FootState.Up;
+		footEvent.flipped = false;
+		activeQueue.Enqueue( footEvent );
+		
+		// Left foot inactive
+		footEvent = new FootPatternEvent();
+		footEvent.symbolName = "FootSymbol4";
+		footEvent.time = ++DEBUGTIME;
+		footEvent.foot = FootSymbol.Foot.Left;
+		footEvent.state = FootSymbol.FootState.Inactive;
+		footEvent.flipped = false;
+		activeQueue.Enqueue( footEvent );
+				
+		// Left foot down
+		footEvent = new FootPatternEvent();
+		footEvent.symbolName = "FootSymbol3";
+		footEvent.time = ++DEBUGTIME;
+		footEvent.foot = FootSymbol.Foot.Left;
+		footEvent.state = FootSymbol.FootState.Down;
+		footEvent.flipped = false;
+		activeQueue.Enqueue( footEvent );
+		
+	
+		// Right foot inactive
+		footEvent = new FootPatternEvent();
+		footEvent.symbolName = "FootSymbol6";
+		footEvent.time = ++DEBUGTIME;
+		footEvent.foot = FootSymbol.Foot.Right;
+		footEvent.state = FootSymbol.FootState.Inactive;
+		footEvent.flipped = false;
+		activeQueue.Enqueue( footEvent );
+		
+		// Right foot down
+		footEvent = new FootPatternEvent();
+		footEvent.symbolName = "FootSymbol4";
+		footEvent.time = ++DEBUGTIME;
+		footEvent.foot = FootSymbol.Foot.Right;
+		footEvent.state = FootSymbol.FootState.Down;
+		footEvent.flipped = false;
+		activeQueue.Enqueue( footEvent );
+		
+		
+		// Left foot inactive
+		footEvent = new FootPatternEvent();
+		footEvent.symbolName = "FootSymbol3";
+		footEvent.time = ++DEBUGTIME;
+		footEvent.foot = FootSymbol.Foot.Left;
+		footEvent.state = FootSymbol.FootState.Inactive;
+		footEvent.flipped = false;
+		activeQueue.Enqueue( footEvent );
+		
+		// Left foot down
+		footEvent = new FootPatternEvent();
+		footEvent.symbolName = "FootSymbol1";
+		footEvent.time = ++DEBUGTIME;
+		footEvent.foot = FootSymbol.Foot.Left;
+		footEvent.state = FootSymbol.FootState.Down;
+		footEvent.flipped = false;
+		activeQueue.Enqueue( footEvent );
+		
+		
+		// Right foot inactive
+		footEvent = new FootPatternEvent();
+		footEvent.symbolName = "FootSymbol4";
+		footEvent.time = ++DEBUGTIME;
+		footEvent.foot = FootSymbol.Foot.Right;
+		footEvent.state = FootSymbol.FootState.Inactive;
+		footEvent.flipped = false;
+		activeQueue.Enqueue( footEvent );
+		
+		// Right foot up
+		footEvent = new FootPatternEvent();
+		footEvent.symbolName = "FootSymbol3";
+		footEvent.time = ++DEBUGTIME;
+		footEvent.foot = FootSymbol.Foot.Right;
+		footEvent.state = FootSymbol.FootState.Up;
+		footEvent.flipped = false;
+		activeQueue.Enqueue( footEvent );
+		
+		// TODO IT NEEDS TO REPEAT HERE, but for debugging, I'm going to 
+		// make it end as it started
+		// Right foot inactive
+		footEvent = new FootPatternEvent();
+		footEvent.symbolName = "FootSymbol3";
+		footEvent.time = ++DEBUGTIME;
+		footEvent.foot = FootSymbol.Foot.Right;
+		footEvent.state = FootSymbol.FootState.Inactive;
+		footEvent.flipped = false;
+		activeQueue.Enqueue( footEvent );
+		
+		// Right foot down
+		footEvent = new FootPatternEvent();
+		footEvent.symbolName = "FootSymbol2";
+		footEvent.time = ++DEBUGTIME;
+		footEvent.foot = FootSymbol.Foot.Right;
+		footEvent.state = FootSymbol.FootState.Down;
+		footEvent.flipped = false;
+		activeQueue.Enqueue( footEvent );
+		
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		patternTimer += Time.deltaTime;
 		
-		print(patternTimer);
+		bool doneFiringEvents = false;
 		
-		// Check if the event at the top should be fired
-		FootPatternEvent footEvent = activeQueue.Peek() as FootPatternEvent;
-		if( Math.Abs( footEvent.time - patternTimer ) <= 0.05 )
+		while( !doneFiringEvents )
 		{
-			// Pop the top off the active queue and push it on the inactive queue
-			footEvent = activeQueue.Dequeue() as FootPatternEvent;
-			inactiveQueue.Enqueue( footEvent );
-			
-			// Now do the actual stuff of the event.
-			GameObject footSymbolObject = GameObject.Find( footEvent.symbolName );
-			if( footSymbolObject != null )
+			// Check if there are events to check in the active queue
+			if( activeQueue.Count > 0 )
 			{
-				FootSymbol footSymbol = footSymbolObject.GetComponent<FootSymbol>();
-				
-				if( footSymbol != null )
+				// Check if the event at the top should be fired
+				FootPatternEvent footEvent = activeQueue.Peek() as FootPatternEvent;
+				if( Math.Abs( footEvent.time - patternTimer ) <= 0.05 || (patternTimer >= footEvent.time) )
 				{
-					footSymbol.UpdateFoot( footEvent.foot, footEvent.state, footEvent.flipped );
+					// Pop the top off the active queue and push it on the inactive queue
+					footEvent = activeQueue.Dequeue() as FootPatternEvent;
+					inactiveQueue.Enqueue( footEvent );
+					
+					// Now do the actual stuff of the event.
+					GameObject footSymbolObject = GameObject.Find( footEvent.symbolName );
+					if( footSymbolObject != null )
+					{
+						FootSymbol footSymbol = footSymbolObject.GetComponent<FootSymbol>();
+						
+						if( footSymbol != null )
+						{
+							footSymbol.UpdateFoot( footEvent.foot, footEvent.state, footEvent.flipped );
+						}
+					}				
+				}
+				
+				// The top event is ready to be fired so we're done
+				else
+				{
+					doneFiringEvents = true;	
 				}
 			}
 			
-			// If that was the last event we need to swap active/inactive queues
-			if( activeQueue.Count <= 0 )
-			{
+			// If the active queue is empty then we're done processing and 
+			// need to flip the active/inactive queues.
+			else
+			{				
 				Queue temp = activeQueue;
 				activeQueue	= inactiveQueue;
 				inactiveQueue = temp;
-				
+						
 				// Reset the pattern timer
 				patternTimer = 0.0f;
-			}
-		}
+				
+				doneFiringEvents = true;				
+			}			
+		}		
 	}
 }
