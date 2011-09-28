@@ -46,7 +46,9 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Beat\BeatPattern.cs" />
      <Compile Include="Assets\Scripts\Feet\Foot.cs" />
+     <Compile Include="Assets\Scripts\Feet\FootPattern.cs" />
      <Compile Include="Assets\Scripts\Feet\FootPattern1.cs" />
+     <Compile Include="Assets\Scripts\Feet\FootPattern2.cs" />
      <Compile Include="Assets\Scripts\Feet\FootPatternEvent.cs" />
      <Compile Include="Assets\Scripts\Feet\FootSymbol.cs" />
      <Compile Include="Assets\Scripts\Manager\BeatManager.cs" />

@@ -185,11 +185,11 @@ public class GameManager : MonoBehaviour {
 	
 	// Get the sticks moving again.
 	public void StartSticks()
-	{		
+	{				
 		foreach( Stick stick in sticks )
 		{			
 			stick.StartMoving();		
-		}	
+		}			
 	}
 	
 	// This won't stop the sticks immediately but will prevent them
@@ -232,9 +232,20 @@ public class GameManager : MonoBehaviour {
 		}		
 	}
 	
+	
 	public void NextBeat()
 	{
 		beat = BeatManager.instance.GetNextBeat();
+	}
+	
+	
+	public void IncreaseFootPatternSpeed()
+	{
+		// Increase foot pattern speed
+		GameObject patternObject = GameObject.Find("FootPattern1") as GameObject;
+		FootPattern1 pattern = patternObject.GetComponent<FootPattern1>();
+		pattern.currentSpeed += 0.2f;
+		print( pattern.currentSpeed );
 	}
 	
 	// GUI Events

@@ -1,16 +1,18 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Feet\FootPattern1.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Feet\FootPattern2.cs">
     <Files>
       <File FileName="Assets\Scripts\Sticks\Stick.cs" Line="50" Column="6" />
-      <File FileName="Assets\Scripts\Manager\GameManager.cs" Line="57" Column="2" />
+      <File FileName="Assets\Scripts\Manager\GameManager.cs" Line="240" Column="2" />
       <File FileName="Assets\Scripts\Feet\Foot.cs" Line="45" Column="38" />
       <File FileName="Assets\Scripts\Sticks\RightStick.cs" Line="28" Column="76" />
       <File FileName="Assets\Scripts\Beat\BeatPattern.cs" Line="13" Column="9" />
       <File FileName="Assets\Scripts\Manager\BeatManager.cs" Line="93" Column="10" />
       <File FileName="Assets\Scripts\Feet\FootSymbol.cs" Line="132" Column="5" />
       <File FileName="Assets\Scripts\Feet\FootPatternEvent.cs" Line="19" Column="2" />
-      <File FileName="Assets\Scripts\Feet\FootPattern1.cs" Line="212" Column="38" />
+      <File FileName="Assets\Scripts\Feet\FootPattern1.cs" Line="181" Column="1" />
+      <File FileName="Assets\Scripts\Feet\FootPattern2.cs" Line="38" Column="45" />
+      <File FileName="Assets\Scripts\Feet\FootPattern.cs" Line="44" Column="9" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
