@@ -121,6 +121,13 @@ public class FootSymbol : MonoBehaviour {
 				if( state == FootState.Down )
 				{					
 					footObject = Instantiate( leftFootDownIcon, this.transform.position, this.transform.rotation) as GameObject;
+					
+					// Update the foot boundaries
+					if( GameManager.instance.feetBoundaries.Length > 1 )
+					{
+						GameManager.instance.feetBoundaries[0].x = footObject.transform.position.x - 1.5f;
+						GameManager.instance.feetBoundaries[0].y = footObject.transform.position.x + 1.5f;
+					}
 				}
 				else if( state == FootState.Up )
 				{
@@ -128,6 +135,22 @@ public class FootSymbol : MonoBehaviour {
 					Vector3 newPosition = footObject.transform.position;
 					newPosition.z -= 5.0f;
 					footObject.transform.position = newPosition;
+					
+					// Clear foot boundaries
+					if( GameManager.instance.feetBoundaries.Length > 1 )
+					{
+						GameManager.instance.feetBoundaries[0].x = 0.0f;
+						GameManager.instance.feetBoundaries[0].y = 0.0f;
+					}
+				}
+				else if( state == FootState.Inactive )
+				{
+					// Clear foot boundaries
+					if( GameManager.instance.feetBoundaries.Length > 1 )
+					{
+						GameManager.instance.feetBoundaries[0].x = 0.0f;
+						GameManager.instance.feetBoundaries[0].y = 0.0f;
+					}
 				}
 			}
 			
@@ -137,6 +160,13 @@ public class FootSymbol : MonoBehaviour {
 				if( state == FootState.Down )
 				{
 					footObject = Instantiate( rightFootDownIcon, this.transform.position, this.transform.rotation) as GameObject;	
+					
+					// Update the foot boundaries
+					if( GameManager.instance.feetBoundaries.Length > 1 )
+					{
+						GameManager.instance.feetBoundaries[1].x = footObject.transform.position.x - 1.5f;
+						GameManager.instance.feetBoundaries[1].y = footObject.transform.position.x + 1.5f;
+					}
 				}
 				else if( state == FootState.Up )
 				{
@@ -144,6 +174,22 @@ public class FootSymbol : MonoBehaviour {
 					Vector3 newPosition = footObject.transform.position;
 					newPosition.z -= 5.0f;
 					footObject.transform.position = newPosition;
+					
+					// Clear foot boundaries
+					if( GameManager.instance.feetBoundaries.Length > 1 )
+					{
+						GameManager.instance.feetBoundaries[1].x = 0.0f;
+						GameManager.instance.feetBoundaries[1].y = 0.0f;
+					}
+				}
+				else if( state == FootState.Inactive )
+				{
+					// Clear foot boundaries
+					if( GameManager.instance.feetBoundaries.Length > 1 )
+					{
+						GameManager.instance.feetBoundaries[1].x = 0.0f;
+						GameManager.instance.feetBoundaries[1].y = 0.0f;
+					}
 				}
 			}
 		}

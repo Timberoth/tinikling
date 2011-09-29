@@ -24,6 +24,9 @@ public class FootPattern : MonoBehaviour {
 	// Timer	
 	protected float patternTimer = 0.0f;
 	
+	// Timer Offset Value after applied after first cycle.
+	protected float timerOffset = 0.0f;
+	
 	// Use this for initialization
 	void Start () {
 	
@@ -99,8 +102,31 @@ public class FootPattern : MonoBehaviour {
 				// Reset the pattern timer
 				patternTimer = 0.0f;
 				
+				// If there's a timer offset, apply it
+				if( timerOffset != 0 )
+				{
+					OffsetEventTimes( timerOffset );
+					timerOffset = 0;
+				}
+				
 				doneFiringEvents = true;				
 			}			
 		}		
+	}
+	
+	
+	// Offset the event times for all events
+	protected void OffsetEventTimes( float offset )
+	{
+		// Go through all the events and offset the times
+		foreach( FootPatternEvent patternEvent in activeQueue )
+		{
+			patternEvent.time += offset;	
+		}
+		
+		foreach( FootPatternEvent patternEvent in inactiveQueue )
+		{
+			patternEvent.time += offset;	
+		}
 	}
 }

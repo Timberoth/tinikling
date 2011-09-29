@@ -100,6 +100,7 @@ public class FootPattern1 : FootPattern {
 		footEvent.state = FootSymbol.FootState.Inactive;
 		activeQueue.Enqueue( footEvent );
 		
+		/*
 		// Left foot up
 		footEvent = new FootPatternEvent();
 		footEvent.symbolName = "FootSymbol4";
@@ -107,6 +108,7 @@ public class FootPattern1 : FootPattern {
 		footEvent.foot = FootSymbol.Foot.Left;
 		footEvent.state = FootSymbol.FootState.Up;
 		activeQueue.Enqueue( footEvent );
+		*/
 		
 		// Left foot inactive
 		footEvent = new FootPatternEvent();
@@ -167,6 +169,7 @@ public class FootPattern1 : FootPattern {
 		footEvent.state = FootSymbol.FootState.Inactive;
 		activeQueue.Enqueue( footEvent );
 		
+		/*
 		// Right foot up
 		footEvent = new FootPatternEvent();
 		footEvent.symbolName = "FootSymbol3";
@@ -174,6 +177,7 @@ public class FootPattern1 : FootPattern {
 		footEvent.foot = FootSymbol.Foot.Right;
 		footEvent.state = FootSymbol.FootState.Up;
 		activeQueue.Enqueue( footEvent );
+		*/
 				
 		// It all repeats from here.	
 	}
