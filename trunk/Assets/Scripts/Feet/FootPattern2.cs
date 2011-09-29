@@ -17,7 +17,8 @@ public class FootPattern2 : FootPattern {
 		footEvent.symbolName = "FootSymbol3";
 		footEvent.time = 0.0f;
 		footEvent.foot = FootSymbol.Foot.Left;
-		footEvent.state = FootSymbol.FootState.Down;		
+		footEvent.state = FootSymbol.FootState.Down;	
+		footEvent.oneShot = true;
 		activeQueue.Enqueue( footEvent );
 		
 		// Right foot down
@@ -26,6 +27,7 @@ public class FootPattern2 : FootPattern {
 		footEvent.time = 0.0f;
 		footEvent.foot = FootSymbol.Foot.Right;
 		footEvent.state = FootSymbol.FootState.Down;		
+		footEvent.oneShot = true;
 		activeQueue.Enqueue( footEvent );
 		
 		++DEBUGTIME;
@@ -35,7 +37,8 @@ public class FootPattern2 : FootPattern {
 		footEvent.symbolName = "FootSymbol3";
 		footEvent.time = DEBUGTIME;
 		footEvent.foot = FootSymbol.Foot.Left;
-		footEvent.state = FootSymbol.FootState.Up;		
+		footEvent.state = FootSymbol.FootState.Inactive;		
+		footEvent.oneShot = true;
 		activeQueue.Enqueue( footEvent );
 		
 		// Right foot inactive
@@ -43,11 +46,15 @@ public class FootPattern2 : FootPattern {
 		footEvent.symbolName = "FootSymbol4";
 		footEvent.time = DEBUGTIME;
 		footEvent.foot = FootSymbol.Foot.Right;
-		footEvent.state = FootSymbol.FootState.Up;		
+		footEvent.state = FootSymbol.FootState.Inactive;		
+		footEvent.oneShot = true;
 		activeQueue.Enqueue( footEvent );
 		
+		// Set the offset timer
+		timerOffset = -DEBUGTIME;
+		
 		++DEBUGTIME;
-						
+		
 		// Left foot down
 		footEvent = new FootPatternEvent();
 		footEvent.symbolName = "FootSymbol3";
@@ -71,7 +78,7 @@ public class FootPattern2 : FootPattern {
 		footEvent.symbolName = "FootSymbol3";
 		footEvent.time = DEBUGTIME;
 		footEvent.foot = FootSymbol.Foot.Left;
-		footEvent.state = FootSymbol.FootState.Up;
+		footEvent.state = FootSymbol.FootState.Inactive;
 		activeQueue.Enqueue( footEvent );
 		
 		// Right foot inactive
@@ -79,7 +86,7 @@ public class FootPattern2 : FootPattern {
 		footEvent.symbolName = "FootSymbol4";
 		footEvent.time = DEBUGTIME;
 		footEvent.foot = FootSymbol.Foot.Right;
-		footEvent.state = FootSymbol.FootState.Up;		
+		footEvent.state = FootSymbol.FootState.Inactive;		
 		activeQueue.Enqueue( footEvent );
 				
 		++DEBUGTIME;			
@@ -118,6 +125,8 @@ public class FootPattern2 : FootPattern {
 		footEvent.state = FootSymbol.FootState.Inactive;
 		activeQueue.Enqueue( footEvent );	
 		
+		++DEBUGTIME;
+		
 		// Left foot down
 		footEvent = new FootPatternEvent();
 		footEvent.symbolName = "FootSymbol2";
@@ -151,7 +160,7 @@ public class FootPattern2 : FootPattern {
 		footEvent.foot = FootSymbol.Foot.Right;
 		footEvent.state = FootSymbol.FootState.Inactive;
 		activeQueue.Enqueue( footEvent );	
-				
+		
 		// It all repeats from here.	
 	}
 }

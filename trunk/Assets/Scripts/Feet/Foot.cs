@@ -18,9 +18,10 @@ public class Foot : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		// As long as the foot exists, it gains points
-		GameManager.instance.score++;
-		GameManager.instance.UpdateScore();	
+		
+		float x = this.gameObject.transform.position.x;		
+		
+		GameManager.instance.CheckFootBounds( x );		
 	}
 	
 	void OnTriggerEnter (Collider other) {

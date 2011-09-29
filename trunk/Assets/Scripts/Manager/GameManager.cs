@@ -29,6 +29,11 @@ public class GameManager : MonoBehaviour {
 	// Current Beat being used.
 	public BeatPattern beat;
 	
+	// The left and right foot symbol boundaries for active symbols.
+	// x = left boundary on the x-axis
+	// y = right boundary on the x-axis
+	public Vector2[] feetBoundaries;
+	
 	// Speed Sliders
 	public UISlider upDownSpeedSlider;
 	public UISlider inOutSpeedSlider;	
@@ -53,7 +58,7 @@ public class GameManager : MonoBehaviour {
 	private Stick []sticks;
 	
 	// Score ticks up from 0
-	public int score { get; set; }
+	private int score = 0;
 	
 	// Number of starting lives
 	public int lives { get; set; }
@@ -91,7 +96,9 @@ public class GameManager : MonoBehaviour {
 		
 		// Feet
 		feet = new GameObject[]{null, null};
-		feetPositions = new Vector3[]{new Vector3(0,0,0), new Vector3(0,0,0)};
+		feetPositions = new Vector3[]{new Vector3(0,0,0), new Vector3(0,0,0)};		
+		
+		feetBoundaries = new Vector2[]{new Vector2(0,0), new Vector2(0,0)};		
 		
 		
 		// Beat - Start with the first beat
@@ -246,6 +253,18 @@ public class GameManager : MonoBehaviour {
 		FootPattern1 pattern = patternObject.GetComponent<FootPattern1>();
 		pattern.currentSpeed += 0.2f;
 		print( pattern.currentSpeed );
+	}
+	
+	
+	public void CheckFootBounds( float x )
+	{
+		// As long as the foot exists within boundaries, it gains points
+		if( x >= feetBoundaries[0].x && x <= feetBoundaries[0].y ||
+		   x >= feetBoundaries[1].x && x <= feetBoundaries[1].y )
+		{
+			score++;
+			UpdateScore();	
+		}	
 	}
 	
 	// GUI Events
