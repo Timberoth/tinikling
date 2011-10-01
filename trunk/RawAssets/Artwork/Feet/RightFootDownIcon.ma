@@ -1,6 +1,6 @@
 //Maya ASCII 2010 scene
 //Name: RightFootDownIcon.ma
-//Last modified: Sun, Sep 18, 2011 05:25:35 PM
+//Last modified: Sat, Oct 01, 2011 04:16:29 PM
 //Codeset: 1252
 requires maya "2010";
 currentUnit -l meter -a degree -t film;
@@ -103,7 +103,7 @@ createNode polyCube -n "polyCube1";
 	setAttr ".d" 3;
 	setAttr ".cuv" 4;
 createNode file -n "file1";
-	setAttr ".ftn" -type "string" "C:/projects/Tinikling/RawAssets/Artwork/Feet/Textures/RightFoot_Texture.png";
+	setAttr ".ftn" -type "string" "C:/projects/Tinikling/RawAssets/Artwork/Feet/Textures/RightFoot_Texture.tga";
 createNode place2dTexture -n "place2dTexture1";
 createNode polyTweakUV -n "polyTweakUV1";
 	setAttr ".uopa" yes;
@@ -182,6 +182,7 @@ select -ne :postProcessList1;
 select -ne :defaultRenderUtilityList1;
 select -ne :lightList1;
 select -ne :defaultTextureList1;
+select -ne :lambert1;
 select -ne :initialShadingGroup;
 	setAttr ".ro" yes;
 select -ne :initialParticleSE;
@@ -193,8 +194,6 @@ select -ne :hardwareRenderGlobals;
 select -ne :defaultHardwareRenderGlobals;
 	setAttr ".fn" -type "string" "im";
 	setAttr ".res" -type "string" "ntsc_4d 646 485 1.333";
-select -ne :ikSystem;
-	setAttr -s 4 ".sol";
 connectAttr "transformGeometry1.og" "pCubeShape1.i";
 connectAttr "polyTweakUV1.uvtk[0]" "pCubeShape1.uvst[0].uvtw";
 connectAttr ":defaultLightSet.msg" "lightLinker1.lnk[0].llnk";
@@ -231,6 +230,7 @@ connectAttr "place2dTexture1.msg" ":defaultRenderUtilityList1.u" -na;
 connectAttr "lightLinker1.msg" ":lightList1.ln" -na;
 connectAttr "file1.msg" ":defaultTextureList1.tx" -na;
 connectAttr "file1.oc" ":lambert1.c";
+connectAttr "file1.ot" ":lambert1.it";
 connectAttr "pCubeShape1.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "file1.msg" ":initialMaterialInfo.t" -na;
 // End of RightFootDownIcon.ma

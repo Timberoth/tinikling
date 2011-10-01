@@ -43,7 +43,7 @@ public class Foot : MonoBehaviour {
 			GameManager.instance.UpdateLives();		
 			
 			// Stop the sticks from moving
-			GameManager.instance.StopSticks();
+			//GameManager.instance.StopSticks();
 			
 			// Destroy object
 			Destroy( this.gameObject );			

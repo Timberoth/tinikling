@@ -1,11 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Feet\FootSymbol.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Feet\Foot.cs">
     <Files>
       <File FileName="Assets\Scripts\Sticks\Stick.cs" Line="50" Column="6" />
       <File FileName="Assets\Scripts\Manager\GameManager.cs" Line="101" Column="17" />
-      <File FileName="Assets\Scripts\Feet\Foot.cs" Line="24" Column="45" />
-      <File FileName="Assets\Scripts\Feet\FootSymbol.cs" Line="192" Column="7" />
+      <File FileName="Assets\Scripts\Feet\Foot.cs" Line="46" Column="6" />
+      <File FileName="Assets\Scripts\Feet\FootSymbol.cs" Line="173" Column="4" />
       <File FileName="Assets\Scripts\Feet\FootPatternEvent.cs" Line="19" Column="2" />
       <File FileName="Assets\Scripts\Feet\FootPattern1.cs" Line="180" Column="5" />
       <File FileName="Assets\Scripts\Feet\FootPattern2.cs" Line="37" Column="40" />

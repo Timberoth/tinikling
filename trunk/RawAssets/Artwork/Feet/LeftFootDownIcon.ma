@@ -1,6 +1,6 @@
 //Maya ASCII 2010 scene
 //Name: LeftFootDownIcon.ma
-//Last modified: Sun, Sep 18, 2011 05:20:15 PM
+//Last modified: Sat, Oct 01, 2011 04:14:41 PM
 //Codeset: 1252
 requires maya "2010";
 currentUnit -l meter -a degree -t film;
@@ -11,8 +11,8 @@ fileInfo "cutIdentifier" "200907280007-756013";
 fileInfo "osv" "Microsoft Windows Vista Service Pack 1 (Build 7601)\n";
 createNode transform -s -n "persp";
 	setAttr ".v" no;
-	setAttr ".t" -type "double3" 8.5059740703375919 9.7058638236317858 -17.286421864135729 ;
-	setAttr ".r" -type "double3" -26.738352729605573 153.80000000000018 0 ;
+	setAttr ".t" -type "double3" 1.8172897143031832 13.499357462261933 -16.728436104829211 ;
+	setAttr ".r" -type "double3" -38.738352729604514 173.79999999999893 0 ;
 createNode camera -s -n "perspShape" -p "persp";
 	setAttr -k off ".v" no;
 	setAttr ".fl" 34.999999999999993;
@@ -103,7 +103,7 @@ createNode polyCube -n "polyCube1";
 	setAttr ".d" 3;
 	setAttr ".cuv" 4;
 createNode file -n "file1";
-	setAttr ".ftn" -type "string" "C:/projects/Tinikling/RawAssets/Artwork/Feet/Textures/LeftFoot_Texture.png";
+	setAttr ".ftn" -type "string" "C:/projects/Tinikling/RawAssets/Artwork/Feet/Textures/LeftFoot_Texture.tga";
 createNode place2dTexture -n "place2dTexture1";
 createNode polyTweakUV -n "polyTweakUV1";
 	setAttr ".uopa" yes;
@@ -230,6 +230,7 @@ connectAttr "place2dTexture1.msg" ":defaultRenderUtilityList1.u" -na;
 connectAttr "lightLinker1.msg" ":lightList1.ln" -na;
 connectAttr "file1.msg" ":defaultTextureList1.tx" -na;
 connectAttr "file1.oc" ":lambert1.c";
+connectAttr "file1.ot" ":lambert1.it";
 connectAttr "pCubeShape1.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "file1.msg" ":initialMaterialInfo.t" -na;
 // End of LeftFootDownIcon.ma
