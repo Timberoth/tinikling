@@ -256,6 +256,29 @@ public class GameManager : MonoBehaviour {
 	}
 	
 	
+	// TODO Debug functionality
+	public void PausePattern()
+	{
+		GameObject patternObject = GameObject.Find("FootPattern1") as GameObject;
+		FootPattern1 pattern = patternObject.GetComponent<FootPattern1>();
+		pattern.PausePattern();
+	}
+	
+	public void ResumePattern()
+	{
+		GameObject patternObject = GameObject.Find("FootPattern1") as GameObject;
+		FootPattern1 pattern = patternObject.GetComponent<FootPattern1>();
+		pattern.ResumePattern();
+	}
+	
+	public void StopPattern()
+	{
+		GameObject patternObject = GameObject.Find("FootPattern1") as GameObject;
+		FootPattern1 pattern = patternObject.GetComponent<FootPattern1>();
+		pattern.StopPattern();
+	}
+	
+	
 	public void CheckFootBounds( float x )
 	{
 		// As long as the foot exists within boundaries, it gains points
