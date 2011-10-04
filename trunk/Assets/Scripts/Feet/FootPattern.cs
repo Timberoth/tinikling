@@ -27,6 +27,9 @@ public class FootPattern : MonoBehaviour {
 	// Timer Offset Value after applied after first cycle.
 	protected float timerOffset = 0.0f;
 	
+	// Is Foot Pattern Active
+	protected bool active = true;
+	
 	// Use this for initialization
 	void Start () {
 	
@@ -51,6 +54,10 @@ public class FootPattern : MonoBehaviour {
 	
 	// Update is called once per frame
 	protected void Update () {
+		
+		if( !active )
+			return;
+		
 		patternTimer += ( Time.deltaTime * currentSpeed );
 		
 		bool doneFiringEvents = false;
@@ -128,5 +135,62 @@ public class FootPattern : MonoBehaviour {
 		{
 			patternEvent.time += offset;	
 		}
+	}
+	
+	
+	// Stop the Pattern exactly where it is
+	public void StopPattern()
+	{
+		// Pause the Pattern
+		PausePattern();
+		
+		// Reset to the start
+		ResetPattern();
+	}
+	
+	
+	// Pause the action
+	public void PausePattern()
+	{
+		active = false;
+	}
+	
+	
+	// Resuem the action
+	public void ResumePattern()
+	{
+		active = true;
+	}	
+	
+	
+	// Reset the foot pattern
+	public void ResetPattern()
+	{
+		currentSpeed = startingSpeed;
+		patternTimer = 0.0f;
+		timerOffset = 0.0f;
+		
+		// Clear any active foot symbols
+		// Go through all the events and offset the times
+		foreach( FootPatternEvent patternEvent in activeQueue )
+		{
+			// Now do the actual stuff of the event.
+			GameObject footSymbolObject = GameObject.Find( patternEvent.symbolName );
+			if( footSymbolObject != null )
+			{
+				FootSymbol footSymbol = footSymbolObject.GetComponent<FootSymbol>();
+				
+				if( footSymbol != null )
+				{
+					footSymbol.UpdateFoot( patternEvent.foot, FootSymbol.FootState.Inactive, patternEvent.flipped );
+				}
+			}	
+		}
+		
+		// Clear the queue because they'll be recreated.
+		activeQueue.Clear();
+		inactiveQueue.Clear();
+		
+		CreateSteps();
 	}
 }
