@@ -38,9 +38,9 @@ public class Foot : MonoBehaviour {
 			
 			// Play particle FX
 			
-			// Lose a life
-			GameManager.instance.lives--;
-			GameManager.instance.UpdateLives();		
+			
+			// Lose some points
+			
 			
 			// Stop the sticks from moving
 			//GameManager.instance.StopSticks();

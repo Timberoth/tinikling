@@ -17,7 +17,7 @@ public class LeftStick : Stick {
 	{
 		iTween.MoveBy(gameObject, iTween.Hash("x", GameManager.instance.beat.inOutDist, 
 		                                      "easeType", GameManager.instance.beat.easeTypeIn, 		                                      
-		                                      "speed", GameManager.instance.beat.inOutSpeed,
+		                                      "speed", GameManager.instance.beat.inOutSpeed * speed,
 		                                      "oncomplete", "InComplete"));
 	}
 		
@@ -25,7 +25,7 @@ public class LeftStick : Stick {
 	{
 		iTween.MoveBy(gameObject, iTween.Hash("x", -GameManager.instance.beat.inOutDist, 
 		                                      "easeType", GameManager.instance.beat.easeTypeOut, 		                                     
-		                                      "speed", GameManager.instance.beat.inOutSpeed,
+		                                      "speed", GameManager.instance.beat.inOutSpeed * speed,
 		                                      "oncomplete", "OutComplete"));
 	}	
 }

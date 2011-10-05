@@ -53,19 +53,14 @@ public class GameManager : MonoBehaviour {
 #if UNITY_EDITOR
 	private bool mouseHeld = false;
 #endif
-	
-	// Stick Component refs
-	private Stick []sticks;
+		
 	
 	// Score ticks up from 0
 	private int score = 0;
 	
-	// Number of starting lives
-	public int lives { get; set; }
-	 
+	
 	// GUI Code
 	private SpriteText scoreText;
-	private SpriteText livesText;
 	
 	
 	/*
@@ -90,8 +85,7 @@ public class GameManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		
-		// Initialize everything to the defaults.
-		lives = 3;
+		// Initialize everything to the defaults.		
 		score = 0;		
 		
 		// Feet
@@ -119,39 +113,8 @@ public class GameManager : MonoBehaviour {
 			scoreText.Text = "Score: "+score;	
 		}
 		
-		// Lives Text
-		GameObject livesTextObject = GameObject.Find("LivesText");
-		livesText = livesTextObject.GetComponent<SpriteText>();
-		if( livesText )
-		{
-			livesText.Text = "Lives: "+lives;	
-		}
-		
-		// Sticks
-		sticks = new Stick[]{null,null};
-		string[] stickNames = {"LeftStick", "RightStick"};
-		for( int i = 0; i < stickNames.Length; i++ )
-		{
-			GameObject stickObject = GameObject.Find(stickNames[i]);
-			if( stickObject )
-			{
-				Stick stick = stickObject.GetComponent<Stick>();
-				if( stick )
-				{
-					sticks[i] = stick;
-				}							
-			}	
-			// THIS SHOULD NEVER HAPPEN
-			else
-			{
-				print("ERROR - Could not find LeftStick or RightStick.");
-				Debug.Break();
-			}
-		}	
-		
-		
-		// Get the game going now
-		StartSticks();
+		// Create the StickManager
+		StickManager.Instance.Initialize();
 	}
 	
 	// Update is called once per frame
@@ -180,55 +143,15 @@ public class GameManager : MonoBehaviour {
 		
 		// Reset Combo Multipliers
 		
-		// Reset Lives
-		lives = 3;
-		if( livesText )
-		{
-			livesText.Text = "Lives: "+lives;	
-		}		
-			
+		
 		// Reset speed
 	}	
-	
-	// Get the sticks moving again.
-	public void StartSticks()
-	{				
-		foreach( Stick stick in sticks )
-		{			
-			stick.StartMoving();		
-		}			
-	}
-	
-	// This won't stop the sticks immediately but will prevent them
-	// from starting another cycle.
-	public void StopSticks()
-	{	
-		foreach( Stick stick in sticks )
-		{			
-			stick.StopMoving();		
-		}	
-	}
 	
 	
 	
 	/*
 	 * GUI Functions
 	 */
-	// Update Lives Text
-	public void UpdateLives()
-	{		
-		// Restart the level
-		if( lives <= 0 )
-		{
-			GameManager.instance.RestartLevel();
-			return;
-		}
-		
-		if( livesText )
-		{
-			livesText.Text = "Lives: "+lives;	
-		}		
-	}
 	
 	// Update Score Text
 	public void UpdateScore()
@@ -239,12 +162,13 @@ public class GameManager : MonoBehaviour {
 		}		
 	}
 	
+
+	// TODO Debug Functions
 	
 	public void NextBeat()
 	{
 		beat = BeatManager.instance.GetNextBeat();
-	}
-	
+	}	
 	
 	public void IncreaseFootPatternSpeed()
 	{
@@ -253,10 +177,8 @@ public class GameManager : MonoBehaviour {
 		FootPattern1 pattern = patternObject.GetComponent<FootPattern1>();
 		pattern.currentSpeed += 0.2f;
 		print( pattern.currentSpeed );
-	}
+	}	
 	
-	
-	// TODO Debug functionality
 	public void PausePattern()
 	{
 		GameObject patternObject = GameObject.Find("FootPattern1") as GameObject;
@@ -278,6 +200,16 @@ public class GameManager : MonoBehaviour {
 		pattern.StopPattern();
 	}
 	
+	private float debugStickSpeed = 0.0f;
+	public void IncreaseStickSpeed()
+	{
+		debugStickSpeed += 0.5f;
+		StickManager.Instance.ChangeSpeed( debugStickSpeed );
+	}
+	
+	
+	
+	// Scoring Functions
 	
 	public void CheckFootBounds( float x )
 	{
