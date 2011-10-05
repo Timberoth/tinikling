@@ -3,20 +3,22 @@ using System.Collections;
 
 [RequireComponent (typeof (Collider))]
 public abstract class Stick : MonoBehaviour {
-		
-	// Public
-	public string stickName;
+	
+	// Protected
 	
 	// Track whether the stick should be active/moving or not.
 	// This flag can be flipped by the GameManager to stop the
 	// game from progressing.
-	public bool stickActive = false;
-	
-	// Protected
+	protected bool stickActive = false;
+		
 	protected AudioSource groundHit;
 	protected AudioSource stickHit;
 	
+	protected float speed = 1.0f;
+	
+	
 	// Privates	
+	
 	// Track up/down cycles to begin "in" motion
 	private int upDownCounter = 0;
 	
@@ -81,7 +83,7 @@ public abstract class Stick : MonoBehaviour {
 	{
 		iTween.MoveBy(gameObject, iTween.Hash("z", GameManager.instance.beat.upDownDist,
 		                                      "easeType", GameManager.instance.beat.easeTypeDown,
-		                                      "speed", GameManager.instance.beat.upDownSpeed,
+		                                      "speed", GameManager.instance.beat.upDownSpeed * speed,
 		                                      "oncomplete", "DownComplete"));
 	}
 	
@@ -111,7 +113,7 @@ public abstract class Stick : MonoBehaviour {
 	protected void StartUp()
 	{
 		iTween.MoveBy(gameObject, iTween.Hash("z", -GameManager.instance.beat.upDownDist, 
-		                                      "speed", GameManager.instance.beat.upDownSpeed,
+		                                      "speed", GameManager.instance.beat.upDownSpeed * speed,
 		                                      "easeType", GameManager.instance.beat.easeTypeUp, 		                                      
 		                                      "oncomplete", "UpComplete"));
 	}
@@ -164,4 +166,11 @@ public abstract class Stick : MonoBehaviour {
 		
 		// Update tempo if necessary		
 	}	
+	
+	
+	// Change the stick speed.
+	public void ChangeSpeed( float newSpeed )
+	{
+		speed = newSpeed;	
+	}
 }

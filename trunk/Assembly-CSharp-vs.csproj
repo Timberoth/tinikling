@@ -53,6 +53,7 @@
      <Compile Include="Assets\Scripts\Feet\FootSymbol.cs" />
      <Compile Include="Assets\Scripts\Manager\BeatManager.cs" />
      <Compile Include="Assets\Scripts\Manager\GameManager.cs" />
+     <Compile Include="Assets\Scripts\Manager\StickManager.cs" />
      <Compile Include="Assets\Scripts\Sticks\LeftStick.cs" />
      <Compile Include="Assets\Scripts\Sticks\RightStick.cs" />
      <Compile Include="Assets\Scripts\Sticks\Stick.cs" />
