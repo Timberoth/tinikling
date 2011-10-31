@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour {
 	/*
 	 * Enums
 	 */
+	
+	
 	public enum Foot
 	{
 		Left,
@@ -16,25 +18,31 @@ public class GameManager : MonoBehaviour {
 	/*
 	 * Publics
 	 */	
+	
 	// Prefab References used to spawn objects at run time
+	
+	// Foot Model Reference to spawn when touching the screen.
 	public GameObject footObject;
 		
-	// Speed and Distance Variables
-	public float upDownDist = 3.0f;
-	public float inOutDist = 5.0f;
 		
+	// The maximum speeds achievable using the UI sliders.
 	public float UPDOWN_SPEED_MAX = 40.0f;	
 	public float INOUT_SPEED_MAX = 40.0f;
 	
-	// Current Beat being used.
+	
+	// Current Beat being used.  This might not be used because the beat
+	// may not be changing during a single song.
 	public BeatPattern beat;
 	
 	// The left and right foot symbol boundaries for active symbols.
+	// Your finger touch x value must be between these boundaries.
+	// It's updated in the FootSymbol class.
 	// x = left boundary on the x-axis
 	// y = right boundary on the x-axis
 	public Vector2[] feetBoundaries;
 	
-	// Speed Sliders
+	
+	// UI Speed Sliders
 	public UISlider upDownSpeedSlider;
 	public UISlider inOutSpeedSlider;	
 		
@@ -42,7 +50,10 @@ public class GameManager : MonoBehaviour {
 	/*
 	 * Privates
 	 */
+	
 	// Real time game object references
+	
+	// FeetObject model references
 	private GameObject []feet;
 	
 	// Feet positioning
@@ -55,16 +66,15 @@ public class GameManager : MonoBehaviour {
 #endif
 		
 	
-	// Score ticks up from 0
+	// Current Score starts at 0
 	private int score = 0;
 	
-	
-	// GUI Code
+	// Score Text
 	private SpriteText scoreText;
 	
 	
 	/*
-	 * Singleton Code
+	 * GameManager Singleton Code
 	 */	
 	public static GameManager instance;
 	void Awake(){		
@@ -123,9 +133,10 @@ public class GameManager : MonoBehaviour {
 		CheckForInput();	
 	}
 	
-	/*
-	 * Gameplay Functions
-	 */
+	
+	/// <summary>
+	/// Gameplay Functions 
+	/// </summary>
 	public GameObject SpawnFoot( Vector3 position ){
 	
 		if( footObject != null )
@@ -133,6 +144,7 @@ public class GameManager : MonoBehaviour {
 		else
 			return null;
 	}
+	
 	
 	// Restart the level
 	public void RestartLevel()
@@ -149,10 +161,10 @@ public class GameManager : MonoBehaviour {
 	
 	
 	
-	/*
-	 * GUI Functions
-	 */
-	
+	/// <summary>
+	/// GUI Functions 
+	/// </summary>
+	 
 	// Update Score Text
 	public void UpdateScore()
 	{
@@ -162,9 +174,10 @@ public class GameManager : MonoBehaviour {
 		}		
 	}
 	
-
-	// TODO Debug Functions
 	
+	/// <summary>
+	/// TODO Debug Functions
+	/// </summary>	
 	public void NextBeat()
 	{
 		beat = BeatManager.instance.GetNextBeat();
@@ -207,6 +220,10 @@ public class GameManager : MonoBehaviour {
 		StickManager.Instance.ChangeSpeed( debugStickSpeed );
 	}
 	
+	/// <summary>
+	/// TODO END DEBUG FUNCTIONS
+	/// </summary>
+	
 	
 	
 	// Scoring Functions
@@ -222,7 +239,11 @@ public class GameManager : MonoBehaviour {
 		}	
 	}
 	
-	// GUI Events
+	
+	/// <summary>
+	/// GUI Events
+	/// </summary>	
+	
 	
 	// Called when the slider moves
 	void SpeedSliderChange( IUIObject obj )
@@ -247,9 +268,9 @@ public class GameManager : MonoBehaviour {
     }	
 	
 	
-	/*
-	 * Input Functions
-	 */
+	/// <summary>
+	/// Input Functions 
+	/// </summary>	 
 	private void CheckForInput()
 	{
 #if UNITY_EDITOR				
