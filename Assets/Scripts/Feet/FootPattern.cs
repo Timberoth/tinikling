@@ -91,7 +91,7 @@ public class FootPattern : MonoBehaviour {
 					}				
 				}
 				
-				// The top event is ready to be fired so we're done
+				// The top event is not ready to be fired so we're done
 				else
 				{
 					doneFiringEvents = true;	

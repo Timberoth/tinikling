@@ -51,6 +51,9 @@
      <Compile Include="Assets\Scripts\Feet\FootPattern2.cs" />
      <Compile Include="Assets\Scripts\Feet\FootPatternEvent.cs" />
      <Compile Include="Assets\Scripts\Feet\FootSymbol.cs" />
+     <Compile Include="Assets\Scripts\Level\Level.cs" />
+     <Compile Include="Assets\Scripts\Level\Level1.cs" />
+     <Compile Include="Assets\Scripts\Level\LevelEvent.cs" />
      <Compile Include="Assets\Scripts\Manager\BeatManager.cs" />
      <Compile Include="Assets\Scripts\Manager\GameManager.cs" />
      <Compile Include="Assets\Scripts\Manager\StickManager.cs" />
