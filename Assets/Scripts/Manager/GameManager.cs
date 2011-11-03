@@ -184,32 +184,32 @@ public class GameManager : MonoBehaviour {
 	}	
 	
 	public void IncreaseFootPatternSpeed()
-	{
+	{		
 		// Increase foot pattern speed
-		GameObject patternObject = GameObject.Find("FootPattern1") as GameObject;
-		FootPattern1 pattern = patternObject.GetComponent<FootPattern1>();
+		GameObject patternObject = GameObject.FindGameObjectWithTag("FootPattern") as GameObject;
+		FootPattern pattern = patternObject.GetComponent<FootPattern>();
 		pattern.currentSpeed += 0.2f;
 		print( pattern.currentSpeed );
 	}	
 	
 	public void PausePattern()
 	{
-		GameObject patternObject = GameObject.Find("FootPattern1") as GameObject;
-		FootPattern1 pattern = patternObject.GetComponent<FootPattern1>();
+		GameObject patternObject = GameObject.FindGameObjectWithTag("FootPattern") as GameObject;
+		FootPattern pattern = patternObject.GetComponent<FootPattern>();
 		pattern.PausePattern();
 	}
 	
 	public void ResumePattern()
 	{
-		GameObject patternObject = GameObject.Find("FootPattern1") as GameObject;
-		FootPattern1 pattern = patternObject.GetComponent<FootPattern1>();
+		GameObject patternObject = GameObject.FindGameObjectWithTag("FootPattern") as GameObject;
+		FootPattern pattern = patternObject.GetComponent<FootPattern>();
 		pattern.ResumePattern();
 	}
 	
 	public void StopPattern()
 	{
-		GameObject patternObject = GameObject.Find("FootPattern1") as GameObject;
-		FootPattern1 pattern = patternObject.GetComponent<FootPattern1>();
+		GameObject patternObject = GameObject.FindGameObjectWithTag("FootPattern") as GameObject;
+		FootPattern pattern = patternObject.GetComponent<FootPattern>();
 		pattern.StopPattern();
 	}
 	

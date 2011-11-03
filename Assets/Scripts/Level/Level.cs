@@ -62,15 +62,19 @@ public abstract class Level : MonoBehaviour {
 					// Apply valid stick tempo speeds
 					if( levelEvent.stickTempoSpeed > 0 )
 					{
-						// Change the stick tempo through the stick manager.
-						print( "TODO Change stick tempo speed." );
+						// Change the stick tempo through the stick manager.						
+						StickManager.Instance.ChangeSpeed( levelEvent.stickTempoSpeed );
+						print( "Changing stick tempo speed: " + levelEvent.stickTempoSpeed );
 					}
 					
 					// Apply valid foot pattern speeds
 					if( levelEvent.footPatternSpeed > 0 )
 					{
-						// Change the foot pattern speed through the game manager	
-						print( "TODO Change foot pattern speed." );
+						// Change the foot pattern speed through the game manager							
+						GameObject patternObject = GameObject.FindGameObjectWithTag("FootPattern") as GameObject;
+						FootPattern pattern = patternObject.GetComponent<FootPattern>();
+						pattern.currentSpeed = levelEvent.footPatternSpeed;
+						print( "Changing foot pattern speed: " + levelEvent.footPatternSpeed );
 					}
 					
 					// Fire messages
@@ -103,7 +107,7 @@ public abstract class Level : MonoBehaviour {
 		// Create references to the attached audio sources.
 		foreach( AudioSource source in this.GetComponents<AudioSource>() )
 		{			
-			if( source.clip.name == "Music" )
+			if( source.clip.name.Contains( "Music" ) )
 			{
 				music = source;				
 				break;
