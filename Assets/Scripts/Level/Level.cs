@@ -115,6 +115,8 @@ public abstract class Level : MonoBehaviour {
 		}		
 				
 		if( music )
-			music.Play();
+		{
+			//music.Play();
+		}
 	}	
 }

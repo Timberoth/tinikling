@@ -17,6 +17,11 @@ public abstract class Stick : MonoBehaviour {
 	protected float speed = 1.0f;
 	
 	
+	// Dust particle that plays when the two sticks hit.
+	// Only one of the sticks will need the particle reference.
+	public GameObject dustParticles = null;
+	
+	
 	// Privates	
 	
 	// Track up/down cycles to begin "in" motion
@@ -92,7 +97,8 @@ public abstract class Stick : MonoBehaviour {
 		upDownCounter++;
 		
 		// Play sound
-		groundHit.Play();
+		// TODO ENABLE SOUND
+		//groundHit.Play();
 		
 		// TODO Pull this value from the current BeatPattern.
 		if( upDownCounter >= GameManager.instance.beat.upDownHits )
@@ -128,9 +134,15 @@ public abstract class Stick : MonoBehaviour {
 	public void InComplete()
 	{
 		// Play sound FX
-		stickHit.Play();
+		// TODO ENABLE SOUND
+		//stickHit.Play();
 		
 		// Play particles
+		if( dustParticles )
+		{
+			// Spawn the dustParticle object and it will autodestruct on it's own.
+			GameObject.Instantiate( dustParticles, Vector3.zero, Quaternion.identity );			
+		}
 		
 		StartOut();
 	}
