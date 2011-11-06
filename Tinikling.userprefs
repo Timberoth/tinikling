@@ -1,6 +1,6 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Sticks\Stick.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Manager\GameManager.cs">
     <Files>
       <File FileName="Assets\Scripts\Sticks\Stick.cs" Line="140" Column="20" />
       <File FileName="Assets\Scripts\Manager\GameManager.cs" Line="192" Column="33" />
