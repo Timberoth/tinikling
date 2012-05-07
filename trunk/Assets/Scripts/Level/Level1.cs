@@ -12,14 +12,14 @@ public class Level1 : Level {
 		levelEvent.callbackObject = this.gameObject;
 		levelEvent.callbackMessage = "Level1SpecificFunction";
 		levelEvent.callbackData = "Callback is working for Level 1";
-		levelEvents.Enqueue( levelEvent );
+		//levelEvents.Enqueue( levelEvent );
 		
 		
 		levelEvent = new LevelEvent();
 		levelEvent.triggerTime = 8.0f;
 		levelEvent.footPatternSpeed = 3.0f;
 		levelEvent.stickTempoSpeed = 3.0f;
-		levelEvents.Enqueue( levelEvent );
+		//levelEvents.Enqueue( levelEvent );
 	}
 	
 	public void Level1SpecificFunction( string data )

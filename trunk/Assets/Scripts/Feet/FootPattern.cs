@@ -28,7 +28,7 @@ public class FootPattern : MonoBehaviour {
 	protected float timerOffset = 0.0f;
 	
 	// Is Foot Pattern Active
-	protected bool active = true;
+	protected bool patternActive = true;
 	
 	// Use this for initialization
 	void Start () {
@@ -55,7 +55,7 @@ public class FootPattern : MonoBehaviour {
 	// Update is called once per frame
 	protected void Update () {
 		
-		if( !active )
+		if( !patternActive )
 			return;
 		
 		patternTimer += ( Time.deltaTime * currentSpeed );
@@ -152,14 +152,14 @@ public class FootPattern : MonoBehaviour {
 	// Pause the action
 	public void PausePattern()
 	{
-		active = false;
+		patternActive = false;
 	}
 	
 	
 	// Resuem the action
 	public void ResumePattern()
 	{
-		active = true;
+		patternActive = true;
 	}	
 	
 	

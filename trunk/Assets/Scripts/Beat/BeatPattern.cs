@@ -8,9 +8,9 @@ public class BeatPattern : MonoBehaviour {
 	
 	// Constants
 	public string easeTypeDown = "easeInBack"; 
-	public string easeTypeUp = "easeOutQuint"; 	
-	public string easeTypeIn = "easeInBack"; 
-	public string easeTypeOut = "easeOutQuint"; 
+	public string easeTypeUp = "easeInBack"; 	
+	public string easeTypeIn = "easeInQuart"; 
+	public string easeTypeOut = "easeInQuart"; 
 	
 	// Speed and Distance Variables
 	public float upDownDist = 3.0f;
