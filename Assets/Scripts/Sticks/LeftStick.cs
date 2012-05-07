@@ -13,19 +13,19 @@ public class LeftStick : Stick {
 		// Put the stick in the starting down position.	
 	}
 	
-	public override void StartIn()
+	public override void DownToIn()
 	{
 		iTween.MoveBy(gameObject, iTween.Hash("x", GameManager.instance.beat.inOutDist, 
 		                                      "easeType", GameManager.instance.beat.easeTypeIn, 		                                      
 		                                      "speed", GameManager.instance.beat.inOutSpeed * speed,
-		                                      "oncomplete", "InComplete"));
+		                                      "oncomplete", "DownToInComplete"));
 	}
-		
-	public override void StartOut()
-	{
+	
+	public override void InToDown()
+	{		
 		iTween.MoveBy(gameObject, iTween.Hash("x", -GameManager.instance.beat.inOutDist, 
 		                                      "easeType", GameManager.instance.beat.easeTypeOut, 		                                     
 		                                      "speed", GameManager.instance.beat.inOutSpeed * speed,
-		                                      "oncomplete", "OutComplete"));
+		                                      "oncomplete", "InToDownComplete"));
 	}	
 }
